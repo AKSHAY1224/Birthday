@@ -1,0 +1,942 @@
+/* Styles of the chapter "letter": the sealed envelope, the wax seal with its ring, and the letter paper
+   that is read one paragraph at a time. Quiet and slow. Tokens of tokens.css only. */
+
+[data-chapter='letter'] {
+  --letter-gold: color-mix(in srgb, var(--gold-deep) 74%, var(--ink)); /* warm gold-brown ink */
+  --letter-inside: color-mix(in srgb, var(--paper-edge) 78%, var(--gold-deep)); /* the inside of the envelope */
+  --letter-wax-dark: color-mix(in srgb, var(--rose-deep) 62%, var(--night));
+}
+
+/* the column is exactly as tall as the screen: the paper scrolls inside itself, the page does not */
+.letter {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+.letter .screen__body {
+  flex: 1 1 0;
+  min-height: 0;
+  padding-block: 0 var(--sp-12);
+}
+
+.letter__veil {
+  position: absolute;
+  inset: 0;
+  background: var(--night);
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.letter__stack {
+  flex: 1 1 auto;
+  display: grid;
+  width: 100%;
+  min-height: 0;
+}
+
+/* ───────────── the sealed envelope ───────────── */
+
+.letter__scene {
+  grid-area: 1 / 1;
+  align-self: center;
+  justify-self: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-32);
+  width: 100%;
+  padding-top: var(--sp-48); /* room for the open flap */
+  transition:
+    opacity var(--dur-600) var(--ease),
+    transform var(--dur-900) var(--ease);
+}
+
+.letter__glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34rem;
+  height: 34rem;
+  margin: -19rem 0 0 -17rem;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 15%, transparent) 0%, color-mix(in srgb, var(--gold) 6%, transparent) 45%, transparent 100%);
+  pointer-events: none;
+}
+
+.env {
+  position: relative;
+  flex: none;
+  width: min(100%, 20rem);
+  aspect-ratio: 320 / 232;
+  perspective: 56rem;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.env__back,
+.env__pocket {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px 2px var(--r-8) var(--r-8);
+}
+
+.env__back {
+  z-index: 1;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--letter-inside) 86%, var(--ink)) 0%, var(--letter-inside) 60%);
+  box-shadow: var(--shadow-paper);
+}
+
+/* the folded sheet inside: it rises when the flap is open */
+.env__sheet {
+  position: absolute;
+  z-index: 3;
+  left: 6%;
+  right: 6%;
+  top: 7%;
+  height: 86%;
+  border-radius: var(--r-8) var(--r-8) 0 0;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 0.8125rem, color-mix(in srgb, var(--ink) 9%, transparent) 0.8125rem 0.875rem) 50% 1.5rem / 72% 4.5rem no-repeat,
+    var(--grad-paper);
+  box-shadow: 0 -1px 4px color-mix(in srgb, var(--ink) 16%, transparent);
+  transition: transform var(--dur-900) var(--ease);
+}
+
+.env.is-sheet .env__sheet {
+  transform: translateY(-58%);
+}
+
+.env__pocket {
+  z-index: 4;
+  overflow: hidden;
+}
+
+.letter-stop--fold-a {
+  stop-color: var(--paper-2);
+}
+.letter-stop--fold-b {
+  stop-color: color-mix(in srgb, var(--paper-2) 60%, var(--paper-edge));
+}
+.letter-stop--fold-c {
+  stop-color: var(--paper);
+}
+.letter-stop--fold-d {
+  stop-color: var(--paper-2);
+}
+
+.env__crease {
+  fill: none;
+  stroke: var(--paper-edge);
+  stroke-width: 1;
+}
+
+.env__fold-shadow {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ink) 12%, transparent);
+  stroke-width: 5;
+}
+
+/* her name on the envelope, in the script font */
+.env__name {
+  font-family: var(--font-name);
+  font-size: 46px;
+  fill: var(--ink);
+}
+
+/* the flap: two faces, hinged at the top edge */
+.env__flap,
+.env__flap-shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 55.2%;
+}
+
+.env__flap {
+  z-index: 5;
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+  transition: transform var(--dur-900) var(--ease);
+}
+
+.env.is-flap .env__flap {
+  transform: rotateX(180deg);
+}
+
+.env.is-flap-behind .env__flap {
+  z-index: 2;
+}
+
+.env__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.env__face--in {
+  transform: rotateX(180deg);
+}
+
+.env__face svg {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  overflow: visible;
+}
+
+.env__flap-shape {
+  fill: var(--paper);
+}
+
+/* the inside of the open flap: a little darker at the hinge, lighter towards the tip */
+.letter-stop--flap-hinge {
+  stop-color: color-mix(in srgb, var(--letter-inside) 84%, var(--ink));
+}
+.letter-stop--flap-tip {
+  stop-color: color-mix(in srgb, var(--letter-inside) 50%, var(--paper));
+}
+
+.env__flap-edge {
+  fill: none;
+  stroke: var(--paper-edge);
+  stroke-width: 1.5;
+}
+
+.env__flap-edge--in {
+  stroke: color-mix(in srgb, var(--paper) 75%, transparent);
+}
+
+/* the shadow the closed flap throws on the pocket */
+.env__flap-shadow {
+  z-index: 4;
+  background: color-mix(in srgb, var(--ink) 30%, transparent);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: blur(5px);
+  transform: translateY(3%);
+  transition: opacity var(--dur-400) linear;
+}
+
+.env.is-flap .env__flap-shadow {
+  opacity: 0;
+}
+
+/* ───────────── the wax seal ───────────── */
+
+.seal {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 55.2%;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: -3.25rem 0 0 -3.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.seal:disabled {
+  cursor: default;
+}
+
+.seal__shadow {
+  position: absolute;
+  inset: 0.875rem;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--ink) 55%, transparent) 62%, transparent 100%);
+  transform: translateY(0.3rem) scale(1.08);
+  transition: opacity var(--dur-400) linear;
+}
+
+.seal__ring,
+.seal__track,
+.seal__half,
+.seal__arc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.seal__ring {
+  inset: 0.25rem;
+  transition: opacity var(--dur-400) linear;
+}
+
+.seal__track {
+  border: 1px solid color-mix(in srgb, var(--rose-deep) 34%, transparent);
+  animation: seal-invite calc(var(--dur-900) * 3) ease-in-out infinite;
+}
+
+.seal__half--a {
+  clip-path: inset(0 0 0 50%);
+}
+
+.seal__half--b {
+  clip-path: inset(0 50% 0 0);
+}
+
+.seal__arc {
+  border: 3px solid var(--rose);
+}
+
+.seal__half--a .seal__arc {
+  clip-path: inset(0 50% 0 0);
+}
+
+.seal__half--b .seal__arc {
+  clip-path: inset(0 0 0 50%);
+}
+
+.seal__wax {
+  position: absolute;
+  inset: 1rem;
+  transition: transform var(--dur-600) var(--ease);
+}
+
+.seal.is-held .seal__wax {
+  transform: scale(0.95);
+}
+
+.seal__part,
+.seal__svg,
+.seal__cracks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  overflow: visible;
+}
+
+/* the two halves meet along the crack */
+.seal__part {
+  transition:
+    transform var(--dur-700) var(--ease),
+    opacity var(--dur-600) linear var(--dur-100);
+}
+
+.seal__part--a {
+  clip-path: polygon(-10% -10%, 50% -10%, 50% 5%, 47% 22%, 53% 33%, 48% 45%, 54% 56%, 47% 68%, 52% 80%, 49% 96%, 49% 110%, -10% 110%);
+}
+
+.seal__part--b {
+  clip-path: polygon(110% -10%, 50% -10%, 50% 5%, 47% 22%, 53% 33%, 48% 45%, 54% 56%, 47% 68%, 52% 80%, 49% 96%, 49% 110%, 110% 110%);
+}
+
+.letter-stop--wax-hi {
+  stop-color: var(--rose-light);
+}
+.letter-stop--wax {
+  stop-color: var(--rose);
+}
+.letter-stop--wax-deep {
+  stop-color: var(--rose-deep);
+}
+
+.seal__groove,
+.seal__lip,
+.seal__shine,
+.seal__crack {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.seal__groove {
+  stroke: var(--rose-deep);
+  stroke-width: 2;
+  opacity: 0.75;
+}
+
+.seal__lip {
+  stroke: var(--rose-light);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+
+.seal__flame {
+  fill: var(--rose-deep);
+  opacity: 0.85;
+}
+
+.seal__flame-core {
+  fill: var(--rose-light);
+  opacity: 0.6;
+}
+
+.seal__shine {
+  stroke: var(--paper);
+  stroke-width: 3;
+  opacity: 0.32;
+}
+
+.seal__crack {
+  stroke: var(--letter-wax-dark);
+  stroke-width: 2.4;
+  opacity: 0;
+  transition: opacity var(--dur-200) linear;
+}
+
+.seal.is-crack-1 .seal__crack--1,
+.seal.is-crack-2 .seal__crack--2,
+.seal.is-crack-3 .seal__crack--3 {
+  opacity: 0.95;
+}
+
+/* broken: the halves fall apart */
+.env.is-broken .seal__part--a {
+  opacity: 0;
+  transform: translate(-1.5rem, 1rem) rotate(-24deg);
+}
+
+.env.is-broken .seal__part--b {
+  opacity: 0;
+  transform: translate(1.6rem, 1.25rem) rotate(28deg);
+}
+
+.env.is-broken .seal__ring,
+.env.is-broken .seal__shadow,
+.env.is-broken .seal__cracks {
+  opacity: 0;
+}
+
+.env.is-broken .seal__cracks {
+  transition: opacity var(--dur-200) linear;
+}
+
+.env.is-broken .seal {
+  pointer-events: none;
+}
+
+/* ── the words under the envelope ── */
+
+.letter__prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-8);
+  transition: opacity var(--dur-400) linear;
+}
+
+.letter__instruction {
+  max-width: 16rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-20);
+  font-weight: 500;
+  line-height: var(--lh-snug);
+  color: var(--moonlight);
+  text-wrap: balance;
+}
+
+.letter__hint {
+  min-height: 1.3em;
+  font-size: var(--fs-14);
+  line-height: var(--lh-snug);
+  letter-spacing: 0.03em;
+  color: var(--moonlight-soft);
+  opacity: 0;
+  transform: translateY(var(--sp-4));
+  transition:
+    opacity var(--dur-600) var(--ease),
+    transform var(--dur-600) var(--ease);
+}
+
+.letter__hint.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+[data-chapter='letter']:not([data-letter='sealed']) .letter__prompt {
+  opacity: 0;
+}
+
+/* the envelope makes room for the letter */
+[data-chapter='letter'][data-letter='reading'] .letter__scene,
+[data-chapter='letter'][data-letter='done'] .letter__scene {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(5%) scale(0.94);
+  transition:
+    opacity var(--dur-600) var(--ease),
+    transform var(--dur-900) var(--ease),
+    visibility 0s linear var(--dur-600);
+}
+
+/* ───────────── the letter paper ───────────── */
+
+.letter__paper {
+  grid-area: 1 / 1;
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(9%) scale(0.86, 0.36);
+  transform-origin: 50% 44%;
+  transition:
+    opacity var(--dur-600) var(--ease),
+    transform var(--dur-900) var(--ease),
+    visibility 0s linear var(--dur-600);
+}
+
+[data-chapter='letter'][data-letter='reading'] .letter__paper,
+[data-chapter='letter'][data-letter='done'] .letter__paper {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity var(--dur-600) var(--ease) var(--dur-200),
+    transform var(--dur-900) var(--ease) var(--dur-200),
+    visibility 0s linear;
+}
+
+/* the two folds of the sheet: seen while it opens, gone when it lies flat */
+.letter__paper .letter__fold {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  margin-top: -1.25rem;
+  background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--ink) 9%, transparent) 48%, color-mix(in srgb, var(--paper) 70%, transparent) 52%, transparent 100%);
+  pointer-events: none;
+  transition: opacity calc(var(--dur-900) * 2) var(--ease) var(--dur-900);
+}
+
+.letter__fold--a {
+  top: 33.3%;
+}
+
+.letter__fold--b {
+  top: 66.6%;
+}
+
+[data-chapter='letter'][data-letter='reading'] .letter__fold,
+[data-chapter='letter'][data-letter='done'] .letter__fold {
+  opacity: 0;
+}
+
+/* the text scrolls inside the paper, up and down only, and fades softly at both edges */
+.letter__paper .letter__scroll {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  scrollbar-width: none;
+  border-radius: inherit;
+  cursor: pointer;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, var(--night) 1.75rem, var(--night) calc(100% - 3.25rem), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, var(--night) 1.75rem, var(--night) calc(100% - 3.25rem), transparent 100%);
+}
+
+.letter__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* "show the whole letter": while more of it waits below, a small mark at the lower edge of the paper says so */
+.letter__paper::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: var(--sp-12);
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-left: -0.375rem;
+  border-right: 2px solid var(--rose-deep);
+  border-bottom: 2px solid var(--rose-deep);
+  border-radius: 1px;
+  rotate: 45deg;
+  /* a little clear paper around it, so that it stays readable over a line of the letter that is fading out there */
+  filter: drop-shadow(0 0 0.25rem var(--paper)) drop-shadow(0 0 0.375rem var(--paper));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-400) var(--ease);
+}
+
+.letter__paper.has-more::after {
+  opacity: 0.75;
+  animation: letter-more 1.6s ease-in-out infinite;
+}
+
+@keyframes letter-more {
+  0%,
+  100% {
+    translate: 0 -0.125rem;
+  }
+
+  50% {
+    translate: 0 0.25rem;
+  }
+}
+
+.letter__page {
+  padding: var(--sp-32) var(--sp-32) var(--sp-64);
+  color: var(--ink);
+  text-align: left;
+}
+
+/* a tiny flame as letterhead */
+.letter__mark {
+  width: 1rem;
+  height: 1.375rem;
+  margin: 0 auto var(--sp-16);
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+.letter__mark-out {
+  fill: var(--gold-deep);
+  opacity: 0.85;
+}
+
+.letter__mark-in {
+  fill: var(--gold-light);
+}
+
+.letter__p {
+  margin-top: 1.15em;
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-16), 4.8vw, var(--fs-20));
+  font-weight: 500; /* the weight of the reason cards: at 400 the hairlines and the dashes almost vanish on a small phone */
+  line-height: 1.66;
+  color: var(--ink);
+  text-wrap: pretty;
+  opacity: 0;
+  transform: translateY(var(--sp-12));
+  transition:
+    opacity var(--dur-900) var(--ease),
+    transform var(--dur-900) var(--ease);
+}
+
+.letter__p.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* the soft words: written by hand */
+.letter__p em {
+  font-family: var(--font-hand);
+  font-size: 1.3em;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.letter__p--hello {
+  margin-top: 0;
+  font-family: var(--font-name);
+  font-size: var(--fs-39);
+  line-height: 1.2;
+}
+
+/* the one line with its own breath: alone, larger, warm gold-brown */
+.letter__p--gold {
+  margin-block: var(--sp-48);
+  font-size: clamp(var(--fs-25), 7.2vw, var(--fs-31));
+  line-height: 1.28;
+  color: var(--letter-gold);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.letter__p--gold strong {
+  font-weight: 500;
+}
+
+.letter__p--gold::before,
+.letter__p--gold::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  margin: 0 auto var(--sp-16);
+  background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+}
+
+.letter__p--gold::after {
+  margin: var(--sp-16) auto 0;
+}
+
+/* while the gold line is the newest, everything before it steps back */
+.letter__paper.is-breath .letter__p.is-on:not(.letter__p--gold) {
+  opacity: 0.26;
+}
+
+.letter__paper.is-breath .letter__mark {
+  opacity: 0.26;
+}
+
+/* the sign-off: by hand, on the right */
+.letter__sign {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: var(--sp-32);
+  line-height: var(--lh-snug);
+  text-align: right;
+}
+
+.letter__signoff {
+  font-family: var(--font-hand);
+  font-size: var(--fs-25);
+  font-weight: 600;
+}
+
+.letter__sig {
+  width: 11.5rem;
+  height: auto;
+  max-width: 100%;
+  margin-top: calc(-1 * var(--sp-8));
+  overflow: visible;
+  font-family: var(--font-name);
+  font-size: 60px;
+}
+
+.letter__sig-pen {
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.letter__sig-pen tspan {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+}
+
+.letter__sig-fill {
+  fill: var(--ink);
+  opacity: 0;
+}
+
+.letter__sig.is-writing .letter__sig-pen tspan {
+  animation: letter-pen 1300ms cubic-bezier(0.4, 0, 0.3, 1) calc(var(--i, 0) * 210ms) both;
+}
+
+.letter__sig.is-writing .letter__sig-fill {
+  animation: letter-fill var(--dur-900) linear 1500ms both;
+}
+
+.letter__sig.is-signed .letter__sig-pen tspan {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+.letter__sig.is-signed .letter__sig-fill {
+  animation: none;
+  opacity: 1;
+}
+
+.letter__ps {
+  font-family: var(--font-hand);
+  font-size: var(--fs-20);
+  font-weight: 600;
+  color: var(--ink-soft);
+  opacity: 0;
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+.letter__ps em {
+  font-size: 1em;
+}
+
+.letter__ps.is-on {
+  opacity: 1;
+}
+
+@keyframes letter-pen {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes letter-fill {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes seal-invite {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ───────────── below the paper ───────────── */
+
+.letter__dock {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  min-height: 6.25rem;
+}
+
+.letter__controls,
+.letter__cta {
+  grid-area: 1 / 1;
+}
+
+.letter__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  opacity: 0;
+  transition: opacity var(--dur-700) var(--ease);
+}
+
+.letter__controls.is-on {
+  opacity: 1;
+}
+
+/* the gentle "next line" control */
+.letter__more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-8);
+  min-width: 11rem;
+  min-height: 3rem;
+  padding: var(--sp-8) var(--sp-24);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--gold-light);
+  font-family: var(--font-body);
+  font-size: var(--fs-16);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform var(--dur-100) ease-out;
+}
+
+.letter__more:active {
+  transform: scale(0.97);
+}
+
+.letter__more svg {
+  flex: none;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* the quiet link for a reader who wants it all at once */
+.letter__all {
+  min-height: var(--tap-min);
+  padding: var(--sp-8) var(--sp-16);
+  border: 0;
+  background: none;
+  color: var(--moonlight-soft);
+  font-family: var(--font-body);
+  font-size: var(--fs-14);
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.letter__cta {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(var(--sp-12));
+  transition:
+    opacity var(--dur-900) var(--ease),
+    transform var(--dur-900) var(--ease);
+}
+
+.letter__cta.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* complete() and the reset on entering: everything at once, nothing moves */
+[data-chapter='letter'].letter-instant *,
+[data-chapter='letter'].letter-instant *::before,
+[data-chapter='letter'].letter-instant *::after {
+  transition: none !important;
+}
+
+/* ───────────── calm mode ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .seal__track,
+  .letter__paper.has-more::after {
+    animation: none;
+  }
+
+  .seal__wax,
+  .seal.is-held .seal__wax {
+    transform: none;
+    transition: none;
+  }
+
+  .env.is-broken .seal__part--a,
+  .env.is-broken .seal__part--b {
+    transform: none;
+  }
+
+  .seal__part {
+    transition: opacity var(--dur-400) linear;
+  }
+
+  .letter__scene,
+  [data-chapter='letter'][data-letter='reading'] .letter__scene,
+  [data-chapter='letter'][data-letter='done'] .letter__scene {
+    transform: none;
+    transition:
+      opacity var(--dur-400) linear,
+      visibility 0s linear var(--dur-400);
+  }
+
+  .letter__paper,
+  [data-chapter='letter'][data-letter='reading'] .letter__paper,
+  [data-chapter='letter'][data-letter='done'] .letter__paper {
+    transform: none;
+    transition: opacity var(--dur-400) linear var(--dur-200);
+  }
+
+  .letter__p,
+  .letter__hint,
+  .letter__cta {
+    transform: none;
+    transition: opacity var(--dur-400) linear;
+  }
+
+  .letter__more,
+  .letter__more:active {
+    transform: none;
+    transition: none;
+  }
+
+  .letter__sig.is-writing .letter__sig-pen tspan {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .letter__sig.is-writing .letter__sig-fill {
+    animation: letter-fill var(--dur-600) linear 300ms both;
+  }
+}

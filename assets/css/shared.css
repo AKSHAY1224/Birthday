@@ -1,0 +1,385 @@
+/* Parts that more than one screen uses: the rolling figures (waiting room, finale) and the flame
+   (lamp, cake — js/fx/flame.js). Linked after base.css and before the chapter files. Tokens of tokens.css only. */
+
+/* ───────────── rolling figures: <span class="digit"><span class="digit__in">7</span></span> ───────────── */
+
+.digit {
+  position: relative;
+  display: inline-block;
+  /* one digit wide in this font, so no figure is ever clipped at any text size */
+  width: 0.6em;
+  width: 1ch;
+  height: 1.16em;
+  overflow: hidden;
+  line-height: 1.16;
+  text-align: center;
+}
+
+.digit__in {
+  display: block;
+}
+
+.digit::before {
+  content: attr(data-prev);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.digit.is-roll-a .digit__in {
+  animation: digit-in-a var(--dur-600) var(--ease) both;
+}
+.digit.is-roll-b .digit__in {
+  animation: digit-in-b var(--dur-600) var(--ease) both;
+}
+.digit.is-roll-a::before {
+  animation: digit-out-a var(--dur-600) var(--ease) both;
+}
+.digit.is-roll-b::before {
+  animation: digit-out-b var(--dur-600) var(--ease) both;
+}
+
+@keyframes digit-in-a {
+  from {
+    transform: translateY(62%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes digit-in-b {
+  from {
+    transform: translateY(62%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes digit-out-a {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-62%);
+    opacity: 0;
+  }
+}
+@keyframes digit-out-b {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-62%);
+    opacity: 0;
+  }
+}
+
+/* ───────────── the flame (js/fx/flame.js) ───────────── */
+
+.flame {
+  position: relative;
+  flex: none;
+  display: block;
+  width: calc(var(--flame-size, 4rem) * 0.56);
+  height: var(--flame-size, 4rem);
+  pointer-events: none;
+}
+
+/* the soft round light around the flame */
+.flame__halo {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: calc(var(--flame-size, 4rem) * 3.4);
+  height: calc(var(--flame-size, 4rem) * 3.4);
+  margin: 0 0 calc(var(--flame-size, 4rem) * -1.3) calc(var(--flame-size, 4rem) * -1.7);
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity var(--dur-900) var(--ease),
+    transform var(--dur-900) var(--ease);
+}
+
+.flame__halo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--gold-light) 46%, transparent) 0%,
+    color-mix(in srgb, var(--gold) 22%, transparent) 34%,
+    color-mix(in srgb, var(--gold) 7%, transparent) 66%,
+    transparent 100%
+  );
+}
+
+.flame.is-lit .flame__halo {
+  opacity: 1;
+  transform: none;
+}
+
+.flame.is-lit .flame__halo::before {
+  animation: flame-halo calc(var(--dur-900) * 3) ease-in-out infinite;
+}
+
+/* the body: hidden until lit, then it leaps up once */
+.flame__catch {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(0.3, 0.05);
+  transform-origin: 50% 96%;
+  transition:
+    opacity var(--dur-400) linear,
+    transform var(--dur-400) var(--ease);
+}
+
+.flame.is-lit .flame__catch {
+  opacity: 1;
+  transform: none;
+  animation: flame-catch var(--dur-900) var(--ease) both;
+}
+
+.flame__sway {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+}
+
+.flame.is-lit .flame__sway {
+  animation: flame-sway calc(var(--dur-900) * 5) ease-in-out infinite;
+}
+
+.flame__layer {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  max-width: none;
+  overflow: visible;
+  transform-origin: 50% 100%;
+}
+
+.flame__layer--outer {
+  width: 100%;
+  height: 100%;
+  margin-left: -50%;
+  filter: blur(calc(var(--flame-size, 4rem) * 0.022));
+}
+
+.flame__layer--mid {
+  bottom: 3%;
+  width: 62%;
+  height: 64%;
+  margin-left: -31%;
+  filter: blur(calc(var(--flame-size, 4rem) * 0.012));
+}
+
+.flame__layer--core {
+  bottom: 7%;
+  width: 32%;
+  height: 36%;
+  margin-left: -16%;
+}
+
+.flame.is-lit .flame__layer--outer {
+  animation: flame-lick-a calc(var(--dur-900) * 2.6) ease-in-out infinite;
+}
+
+.flame.is-lit .flame__layer--mid {
+  animation: flame-lick-b calc(var(--dur-900) * 2.1) ease-in-out infinite;
+}
+
+.flame.is-lit .flame__layer--core {
+  animation: flame-lick-c calc(var(--dur-900) * 1.7) ease-in-out infinite;
+}
+
+/* colours of the three layers, tip first */
+.flame__stop--outer-1 {
+  stop-color: color-mix(in srgb, var(--gold) 55%, var(--rose-light));
+  stop-opacity: 0;
+}
+.flame__stop--outer-2 {
+  stop-color: color-mix(in srgb, var(--gold) 74%, var(--rose-light));
+  stop-opacity: 0.92;
+}
+.flame__stop--outer-3 {
+  stop-color: var(--gold);
+  stop-opacity: 0.95;
+}
+.flame__stop--outer-4 {
+  stop-color: var(--deep-blue-2);
+  stop-opacity: 0.55;
+}
+.flame__stop--mid-1 {
+  stop-color: var(--gold-light);
+  stop-opacity: 0.7;
+}
+.flame__stop--mid-2 {
+  stop-color: var(--gold-light);
+  stop-opacity: 1;
+}
+.flame__stop--mid-3 {
+  stop-color: var(--gold);
+  stop-opacity: 0.85;
+}
+.flame__stop--core-1 {
+  stop-color: var(--paper);
+  stop-opacity: 0.9;
+}
+.flame__stop--core-2 {
+  stop-color: var(--paper);
+  stop-opacity: 1;
+}
+
+/* instant changes, pausing, and the calm version */
+.flame--still .flame__catch,
+.flame--still .flame__halo {
+  animation: none;
+  transition: none;
+}
+
+.flame.is-paused .flame__halo::before,
+.flame.is-paused .flame__catch,
+.flame.is-paused .flame__sway,
+.flame.is-paused .flame__layer {
+  animation-play-state: paused;
+}
+
+.flame--calm.is-lit .flame__halo::before,
+.flame--calm.is-lit .flame__catch,
+.flame--calm.is-lit .flame__sway,
+.flame--calm.is-lit .flame__layer {
+  animation: none;
+}
+
+.flame--calm .flame__catch,
+.flame--calm .flame__halo {
+  transform: none;
+  transition: opacity var(--dur-400) linear;
+}
+
+@keyframes flame-catch {
+  0% {
+    opacity: 0;
+    transform: scale(0.3, 0.05);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.1, 1.22);
+  }
+  72% {
+    transform: scale(0.96, 0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes flame-sway {
+  0%,
+  100% {
+    transform: rotate(-1.6deg);
+  }
+  31% {
+    transform: rotate(2.2deg);
+  }
+  58% {
+    transform: rotate(-0.6deg);
+  }
+  79% {
+    transform: rotate(1.4deg);
+  }
+}
+
+@keyframes flame-lick-a {
+  0%,
+  100% {
+    transform: none;
+  }
+  21% {
+    transform: scale(0.95, 1.06) skewX(-2deg);
+  }
+  46% {
+    transform: scale(1.03, 0.97) skewX(1.2deg);
+  }
+  73% {
+    transform: scale(0.97, 1.08) skewX(2.4deg);
+  }
+}
+
+@keyframes flame-lick-b {
+  0%,
+  100% {
+    transform: none;
+  }
+  27% {
+    transform: scale(1.04, 0.95) skewX(1.6deg);
+  }
+  55% {
+    transform: scale(0.94, 1.09) skewX(-1.8deg);
+  }
+  82% {
+    transform: scale(1.02, 1.02) skewX(0.8deg);
+  }
+}
+
+@keyframes flame-lick-c {
+  0%,
+  100% {
+    transform: none;
+  }
+  33% {
+    transform: scale(0.92, 1.1);
+  }
+  64% {
+    transform: scale(1.06, 0.93);
+  }
+}
+
+@keyframes flame-halo {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  24% {
+    opacity: 0.82;
+  }
+  52% {
+    opacity: 0.96;
+  }
+  77% {
+    opacity: 0.78;
+  }
+}
+
+/* ───────────── calm mode ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .digit.is-roll-a .digit__in,
+  .digit.is-roll-b .digit__in,
+  .digit.is-roll-a::before,
+  .digit.is-roll-b::before {
+    animation: none;
+  }
+
+  .flame.is-lit .flame__halo::before,
+  .flame.is-lit .flame__catch,
+  .flame.is-lit .flame__sway,
+  .flame.is-lit .flame__layer {
+    animation: none;
+  }
+
+  .flame__catch,
+  .flame__halo {
+    transform: none;
+    transition: opacity var(--dur-400) linear;
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "preview": {
+    "title": "Something is waiting for you ✨",
+    "line": "Opens at 12:00 AM · 28 November. Sound on."
+  },
+  "loader": {
+    "lines": [
+      "Taare jama ho rahe hain…",
+      "Wrapping something for exactly one person…",
+      "Diya dhoondh raha hoon…",
+      "Almost there. Sabr, Vartu."
+    ]
+  },
+  "common": {
+    "next": "Aage chalo",
+    "units": {
+      "days": ["day", "days"],
+      "hours": ["hour", "hours"],
+      "minutes": ["minute", "minutes"],
+      "seconds": ["second", "seconds"]
+    }
+  },
+  "waitingRoom": {
+    "heading": "Kuch hai tumhare liye.",
+    "under": "Opens 12:00 AM · 28 November",
+    "onGift": "Do not open before midnight.",
+    "peekReplies": [
+      "Abhi nahi, Vartu.",
+      "Sabr. Sabr ka phal 12 baje milega.",
+      "No peeking. I can see you. (I can't. But still.)",
+      "Itni jaldi? Birthday girl ko patience bhi gift mein chahiye kya?",
+      "Tapping won't open it. Midnight will.",
+      "Gadha main hoon — par itna bhi nahi ki tumhe pehle kholne doon.",
+      "Okay, you're stubborn. Mujhe pata tha.",
+      "Still locked. Still yours.",
+      "{count} baar try kar chuki ho. Main gin raha hoon.",
+      "Bas thoda sa aur. Promise, it's worth it."
+    ],
+    "littleLines": [
+      { "when": "More than a day", "underSeconds": null, "line": "Abhi time hai. Par main abhi se excited hoon." },
+      { "when": "Less than a day", "underSeconds": 86400, "line": "Aaj raat. Bas itna yaad rakhna." },
+      { "when": "A few hours", "underSeconds": 21600, "line": "Kuch ghante aur. Phone charge kar lo." },
+      { "when": "Under an hour", "underSeconds": 3600, "line": "Ek ghanta bhi nahi bacha. Main bhi yahin hoon, ghadi dekh raha hoon." },
+      { "when": "Under 30 minutes", "underSeconds": 1800, "line": "Ab kahin mat jaana." },
+      { "when": "Under 10 minutes", "underSeconds": 600, "line": "Earphones laga lo. Sound on. Trust me." },
+      { "when": "Under 5 minutes", "underSeconds": 300, "line": "Five minutes. Paani pee lo, wapas aao, don't blink." },
+      { "when": "Last minute", "underSeconds": 60, "line": "Ek minute. Ab phone mat rakhna." }
+    ],
+    "soundButton": "Tap and hold my hand till midnight",
+    "soundAfter": "Got you. Ab main yahin hoon."
+  },
+  "midnight": {
+    "greeting": "Happy Birthday",
+    "name": "Vartika",
+    "under": "12:00 AM · 28 November. Tumhara din shuru.",
+    "button": "Open your gift",
+    "late": "You're {time} late, birthday girl. Koi baat nahi — ghadi peeche ghuma dete hain.",
+    "soundChip": "Tap for sound"
+  },
+  "lamp": {
+    "instruction": "Press and hold. Diya jalao.",
+    "hint": "Thoda aur. Dabaye rakho.",
+    "tapFallback": "Ya bas ek baar tap karo.",
+    "meaning": [
+      "**Vartika** — yaani diye ki baati.",
+      "The little wick that holds the flame.",
+      "Jahan tum ho, wahan roshni hai."
+    ],
+    "button": "Chalo, andar aao"
+  },
+  "frames": {
+    "title": "Evidence that we're cute.",
+    "under": "Exhibit A onwards. Tap a frame.",
+    "frames": [
+      { "id": "a", "image": "The illustrated portrait of you two under the street lamp", "caption": "Ek lamp, ek sardi ki shaam, aur hum." },
+      { "id": "b", "image": "Last year's birthday collage", "caption": "28 Nov 2024, 12:27 AM. Teen Vartu, ek Gadha." },
+      { "id": "c", "image": "The two of you at the water's edge", "caption": "April 2023. Jahan tum, wahan main." },
+      { "id": "d", "image": "The soft mirror selfie", "caption": "Photo blurry hai. Yaad nahi." }
+    ],
+    "button": "Aage chalo",
+    "close": "Close"
+  },
+  "question": {
+    "leadIn": "Ek sawaal hai. Seedha sa.",
+    "question": "12 April 2022 ko tumne \"yes\" bola tha. Aaj phir se bologi?",
+    "yes": "YES ❤",
+    "no": "NO",
+    "noLines": [
+      "Nice try.",
+      "Galat button, Vartu.",
+      "Woh button sirf dikhane ke liye hai.",
+      "Itni mehnat \"No\" ke liye? Wow.",
+      "Pakad ke dikhao.",
+      "Gadha hoon, bewakoof nahi.",
+      "\"No\" ne resign kar diya hai.",
+      "Bas karo, ungli thak jaayegi."
+    ],
+    "afterYes": [
+      "Pata tha. ❤",
+      "{days} din ho gaye us \"yes\" ko. Best yes of my life."
+    ],
+    "scratch": {
+      "prompt": "Sahi jawab ka inaam. Scratch karo.",
+      "prize": "Ek lambi si jhappi. No expiry. Redeem jab milenge.",
+      "hint": "Ungli se scratch karo",
+      "skip": "Mere liye khol do"
+    }
+  },
+  "reasons": {
+    "title": "You once asked why I love you. I made a list. It got out of hand.",
+    "items": [
+      "You forgive me. Har baar. Even when I haven't earned it yet.",
+      "You stay. Every single time I needed someone, it was you.",
+      "You call me \"Gadha\" — and somehow it is the sweetest thing anyone calls me.",
+      "On 12 April 2022 you said yes. I have been the lucky one every day since.",
+      "Red looks like it was invented for you.",
+      "You would pick rice over almost anything. I would pick you over everything.",
+      "You were my best friend first. You still are.",
+      "You make an ordinary day feel like an occasion.",
+      "You believe in me on the days I don't.",
+      "Tumhari hansi. It fixes things nothing else can.",
+      "You know all of me — the good and the gadha — and you are still here.",
+      "Because your name means the wick of a lamp, and you really are the light in my life."
+    ],
+    "afterLast": "Yeh wala hissa mazaak nahi hai."
+  },
+  "letter": {
+    "seal": "Seal ko dabaye rakho.",
+    "hint": "Thoda aur. Dabaye rakho.",
+    "tapFallback": "Ya bas ek baar tap karo.",
+    "nextLine": "Aage padho",
+    "showAll": "Poora letter ek saath dikhao",
+    "paragraphs": [
+      "Vartika,",
+      "Tumhare naam ka matlab pata hai? *Diye ki baati* — the little wick that holds the flame.\nI didn't know that when I met you. But I think I felt it.",
+      "Because that is what you do. You never make noise about it — you just make things brighter.",
+      "Every time I got it wrong, you forgave me. Not once, not twice — har baar. And every time I needed someone, I never had to look far. You were already there.",
+      "You didn't have to. You did. I never told you how much that meant. I am telling you now.",
+      "I am not good at saying big things out loud. So I made this instead — every star, every page, every silly button — just to say one small, true thing:",
+      "**Meri zindagi mein roshni tumse hai.**",
+      "Happy birthday, Vartu. Stay exactly who you are.\nMain yahin hoon — aaj, kal, aur har 28 November.",
+      "Hamesha tumhara,\n**Akshay**\n*(haan, wahi — tumhara Gadha)*"
+    ]
+  },
+  "cake": {
+    "before": "Pehle ek wish maango. Kisi ko batana mat. Mujhe bhi nahi.",
+    "ready": "Wish maang li",
+    "instruction": "Ab mic ke paas phoonk maaro. Haan, sach mein.",
+    "noMic": "No mic? Flames ko tap karo. Same magic.",
+    "blowForMe": "Mere liye bujha do",
+    "stays": "Yeh wali nahi bujhegi. Yeh meri hai.",
+    "done": "Happy Birthday, meri Vartika."
+  },
+  "gifts": {
+    "onBox": "Ribbon kheencho.",
+    "opened": "Gifts jo wrap nahi ho sakte the.",
+    "walletTitle": "Vartu's coupon wallet",
+    "smallPrint": "Valid forever. Non-transferable. Nakhre accepted as currency.",
+    "coupons": [
+      { "title": "Yes Day", "note": "ek din, sirf \"haan\".", "full": "**Yes Day** — ek din, sirf \"haan\"." },
+      { "title": "You win this argument.", "note": "No questions asked.", "full": "**You win this argument.** No questions asked." },
+      { "title": "A call until you fall asleep.", "note": "", "full": "**A call until you fall asleep.**" },
+      { "title": "A handwritten letter.", "note": "In my worst handwriting.", "full": "**A handwritten letter.** In my worst handwriting." },
+      { "title": "One hour of listening.", "note": "No advice. Only \"hmm\".", "full": "**One hour of listening.** No advice. Only \"hmm\"." },
+      { "title": "Rice of your choice — my treat.", "note": "Biryani counts.", "full": "**Rice of your choice — my treat.** Biryani counts." },
+      { "title": "Dessert emergency.", "note": "Delivered, any time.", "full": "**Dessert emergency.** Delivered, any time." },
+      { "title": "24 hours of only compliments.", "note": "", "full": "**24 hours of only compliments.**" },
+      { "title": "Queen for a day.", "note": "", "full": "**Queen for a day.**" },
+      { "title": "One \"Gadha will do anything\" card.", "note": "Use wisely.", "full": "**One \"Gadha will do anything\" card.** Use wisely." },
+      { "title": "Movie night.", "note": "You choose, I don't complain.", "full": "**Movie night.** You choose, I don't complain." },
+      { "title": "Unlimited golgappe.", "note": "", "full": "**Unlimited golgappe.**" }
+    ],
+    "redeemMessage": "🎟️ Redeeming my coupon: {coupon name} — Vartu",
+    "redeemedStamp": "REDEEMED",
+    "redeemButton": "Redeem",
+    "closeLabel": "Close"
+  },
+  "finale": {
+    "counter": "{days} days · {hours} hours · {minutes} minutes · {seconds} seconds — since you said yes.",
+    "tease": "P.S. You tried to open this {count} times before midnight. Mujhe sab pata hai.",
+    "lastLines": [
+      "That's all I could fit into one website.",
+      "Baaki sab — jab milenge."
+    ],
+    "tellButton": "Tell me how it was",
+    "tellMessage": "Gadhe, maine sab dekh liya. I loved it. ❤️ — Vartu",
+    "closing": "Ab phone uthao aur apne Gadhe ko call karo.",
+    "credits": "Made with love, late nights and one stubborn Gadha. For exactly one person."
+  },
+  "menu": {
+    "title": "Jab chaho, wapas aao.",
+    "credits": "Credits",
+    "items": [
+      { "id": "countdown", "label": "The waiting room" },
+      { "id": "start", "label": "Midnight" },
+      { "id": "lamp", "label": "The lamp" },
+      { "id": "frames", "label": "Our frames" },
+      { "id": "question", "label": "One question" },
+      { "id": "reasons", "label": "Reasons" },
+      { "id": "letter", "label": "The letter" },
+      { "id": "cake", "label": "The cake" },
+      { "id": "gifts", "label": "Gifts" },
+      { "id": "finale", "label": "Finale" }
+    ]
+  },
+  "errors": {
+    "photo": "Yeh photo sharma gayi. Reload karke dekho.",
+    "network": "Network thoda nakhre kar raha hai. Do second.",
+    "music": "Gaana ruk gaya? Screen pe ek baar tap karo.",
+    "wrongAddress": "Raasta bhool gayi? Main yahin hoon."
+  }
+}

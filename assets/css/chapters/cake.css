@@ -1,0 +1,661 @@
+/* Styles of the chapter "cake": low light, a two-tier cake on a gold stand, seven candles.
+   Tokens of tokens.css only: the icing colours are mixed from rose, gold and paper.
+   The flames themselves are the ".flame" block of shared.css (js/fx/flame.js). */
+
+[data-chapter='cake'] {
+  --cake-w: clamp(15rem, min(80vw, 36dvh), 20rem);
+  --cake-lit: 1; /* share of the six ordinary candles that still burn — set by cake.js */
+  --cake-x: 50%; /* where the gold flame is on the screen — set by cake.js */
+  --cake-y: 24%;
+}
+
+.cake {
+  position: relative;
+  z-index: 1;
+}
+
+/* ───────────── the room: low light, and the glow of the candles ───────────── */
+
+.cake__veil,
+.cake__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cake__veil {
+  background: var(--night);
+  opacity: 0.56;
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+[data-chapter='cake'][data-cake='dark'] .cake__veil {
+  opacity: 0.84;
+}
+
+[data-chapter='cake'][data-cake='party'] .cake__veil {
+  opacity: 0;
+}
+
+.cake__glow {
+  --cake-amber: color-mix(in srgb, var(--gold) 76%, var(--rose));
+  background: radial-gradient(
+    circle at var(--cake-x) var(--cake-y),
+    color-mix(in srgb, var(--cake-amber) 30%, transparent) 0%,
+    color-mix(in srgb, var(--cake-amber) 17%, transparent) 16%,
+    color-mix(in srgb, var(--gold-deep) 9%, transparent) 36%,
+    color-mix(in srgb, var(--rose-deep) 5%, transparent) 58%,
+    transparent 82%
+  );
+  opacity: calc(0.14 + 0.86 * var(--cake-lit));
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+[data-chapter='cake'][data-cake='party'] .cake__glow {
+  opacity: 0.9;
+}
+
+/* ───────────── the stage ───────────── */
+
+.cake__stage {
+  position: relative;
+  flex: none;
+  width: var(--cake-w);
+  aspect-ratio: 300 / 280;
+}
+
+.cake__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* the table under the stand: a shadow, and a pool of candle light */
+.cake__ground,
+.cake__pool {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cake__ground {
+  top: 91%;
+  left: 20%;
+  width: 60%;
+  height: 10%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--night) 90%, transparent) 0%, color-mix(in srgb, var(--night) 52%, transparent) 55%, transparent 100%);
+}
+
+.cake__pool {
+  top: 80%;
+  left: -12%;
+  width: 124%;
+  height: 26%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 22%, transparent) 0%, color-mix(in srgb, var(--gold) 9%, transparent) 52%, transparent 100%);
+  opacity: calc(0.2 + 0.8 * var(--cake-lit));
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+[data-chapter='cake'][data-cake='party'] .cake__pool {
+  opacity: 1;
+}
+
+/* ── the drawing: colours of the gradients ── */
+
+.cake-art__stop--rose-edge {
+  stop-color: color-mix(in srgb, var(--rose-deep) 58%, var(--night));
+}
+.cake-art__stop--rose {
+  stop-color: var(--rose-deep);
+}
+.cake-art__stop--rose-hi {
+  stop-color: color-mix(in srgb, var(--rose) 86%, var(--rose-light));
+}
+.cake-art__stop--cream-edge {
+  stop-color: color-mix(in srgb, var(--paper-edge) 62%, var(--gold-deep));
+}
+.cake-art__stop--cream {
+  stop-color: var(--paper-2);
+}
+.cake-art__stop--cream-hi {
+  stop-color: var(--paper);
+}
+.cake-art__stop--clear {
+  stop-color: var(--night);
+  stop-opacity: 0;
+}
+.cake-art__stop--shade {
+  stop-color: color-mix(in srgb, var(--ink) 70%, var(--rose-deep));
+  stop-opacity: 0.4;
+}
+.cake-art__stop--gold-edge {
+  stop-color: color-mix(in srgb, var(--gold-deep) 78%, var(--night));
+}
+.cake-art__stop--gold-hi {
+  stop-color: var(--gold-light);
+}
+.cake-art__stop--gold {
+  stop-color: var(--gold);
+}
+.cake-art__stop--plate-hi {
+  stop-color: var(--gold-light);
+}
+.cake-art__stop--plate {
+  stop-color: color-mix(in srgb, var(--gold) 82%, var(--gold-deep));
+}
+.cake-art__stop--stick {
+  stop-color: var(--paper);
+}
+.cake-art__stop--stripe {
+  stop-color: var(--rose-light);
+}
+.cake-art__stop--round-a {
+  stop-color: var(--night);
+  stop-opacity: 0.2;
+}
+.cake-art__stop--round-0 {
+  stop-color: var(--paper);
+  stop-opacity: 0.32;
+}
+.cake-art__stop--round-b {
+  stop-color: var(--night);
+  stop-opacity: 0.36;
+}
+.cake-art__stop--warm-1 {
+  stop-color: var(--gold-light);
+  stop-opacity: 0.8;
+}
+.cake-art__stop--warm-0 {
+  stop-color: var(--gold);
+  stop-opacity: 0;
+}
+
+/* ── the drawing: flat shapes ── */
+
+.cake-art__foot,
+.cake-art__plate-under {
+  fill: color-mix(in srgb, var(--gold-deep) 66%, var(--night));
+}
+
+.cake-art__plate-rim {
+  fill: none;
+  stroke: var(--gold-light);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+.cake-art__face--rose {
+  fill: color-mix(in srgb, var(--rose) 72%, var(--rose-light));
+}
+
+.cake-art__face--cream {
+  fill: var(--paper);
+}
+
+.cake-art__pipe--cream {
+  fill: var(--paper);
+  stroke: color-mix(in srgb, var(--paper-edge) 70%, var(--gold-deep));
+  stroke-width: 0.6;
+}
+
+.cake-art__pipe--rose {
+  fill: var(--rose);
+  stroke: var(--rose-deep);
+  stroke-width: 0.6;
+}
+
+.cake-art__pearl {
+  fill: var(--gold-light);
+}
+
+.cake-art__swag,
+.cake-art__band {
+  fill: none;
+  stroke: var(--gold);
+  stroke-linecap: round;
+}
+
+.cake-art__swag {
+  stroke: color-mix(in srgb, var(--gold) 50%, var(--gold-deep));
+  stroke-width: 1.7;
+}
+
+.cake-art__knot {
+  fill: color-mix(in srgb, var(--gold) 70%, var(--gold-deep));
+}
+
+.cake-art__band {
+  stroke-width: 1.2;
+  opacity: 0.75;
+}
+
+.cake-art__heart {
+  fill: var(--gold-light);
+}
+
+.cake-art__holder {
+  fill: var(--gold-deep);
+}
+
+.cake-art__wick {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ink) 70%, var(--night));
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+
+/* candle light on the icing; it leaves with the flames */
+.cake-art__warm {
+  opacity: calc(0.25 + 0.75 * var(--cake-lit));
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+/* the shade that falls on the cake and the six candles as they go out; the gold candle is drawn above it */
+.cake-art__shade {
+  fill: var(--night);
+  opacity: calc(0.58 * (1 - var(--cake-lit)));
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+.cake-art__shade-line {
+  fill: none;
+  stroke: var(--night);
+  stroke-width: 9.5;
+  stroke-linecap: round;
+}
+
+.cake-art__shade-line--wide {
+  stroke-width: 11.5;
+}
+
+.cake-art__shade-line--thin {
+  stroke-width: 5.5;
+}
+
+[data-chapter='cake'][data-cake='party'] .cake-art__shade {
+  opacity: 0.06;
+}
+
+[data-chapter='cake'][data-cake='party'] .cake-art__warm {
+  opacity: 0.8;
+}
+
+/* ── the flames (HTML, over the drawing) ── */
+
+.cake__flames {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cake__candle {
+  --flame-size: calc(var(--cake-w) * 0.105);
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 0;
+  height: 0;
+}
+
+.cake__candle--gold {
+  --flame-size: calc(var(--cake-w) * 0.15);
+}
+
+/* the flame box stands on the wick tip */
+.cake__spot {
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--flame-size) * -0.08);
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+  transition: transform var(--dur-900) var(--ease);
+}
+
+/* alone in the dark, the gold flame stands a little taller */
+[data-chapter='cake'][data-cake='dark'] .cake__candle--gold .cake__spot,
+[data-chapter='cake'][data-cake='party'] .cake__candle--gold .cake__spot {
+  transform: translateX(-50%) scale(1.14);
+}
+
+.cake__bend {
+  display: block;
+  transform-origin: 50% 100%;
+}
+
+/* the small light of an ordinary candle */
+.cake__halo {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: calc(var(--flame-size) * 2.8);
+  height: calc(var(--flame-size) * 2.8);
+  margin: 0 0 calc(var(--flame-size) * -1) calc(var(--flame-size) * -1.4);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--gold-light) 36%, transparent) 0%, color-mix(in srgb, var(--gold) 13%, transparent) 46%, transparent 100%);
+  transition: opacity var(--dur-600) var(--ease);
+  pointer-events: none;
+}
+
+.cake__candle.is-out .cake__halo {
+  opacity: 0;
+}
+
+/* a tiny puff of smoke and a dying ember where a flame was */
+.cake__puff {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.cake__wisp {
+  --wx: -0.3;
+  position: absolute;
+  left: calc(var(--flame-size) * -0.17);
+  top: calc(var(--flame-size) * -0.34);
+  width: calc(var(--flame-size) * 0.34);
+  height: calc(var(--flame-size) * 0.34);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--moonlight-soft) 0%, var(--moonlight-faint) 45%, transparent 100%);
+  opacity: 0;
+}
+
+.cake__wisp:nth-child(2) {
+  --wx: 0.35;
+  animation-delay: var(--dur-100);
+}
+
+.cake__wisp:nth-child(3) {
+  --wx: 0.05;
+  animation-delay: var(--dur-200);
+}
+
+.cake__ember {
+  position: absolute;
+  left: calc(var(--sp-4) * -0.375);
+  top: calc(var(--sp-4) * -0.375);
+  width: calc(var(--sp-4) * 0.75);
+  height: calc(var(--sp-4) * 0.75);
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: var(--glow-gold);
+  opacity: 0;
+}
+
+.cake__candle.is-puff .cake__wisp {
+  animation-name: cake-wisp;
+  animation-duration: var(--dur-900);
+  animation-timing-function: var(--ease);
+  animation-fill-mode: both;
+}
+
+.cake__candle.is-puff .cake__ember {
+  animation: cake-ember var(--dur-900) linear both;
+}
+
+/* the gold flame ducks, flickers and stands up again */
+.cake__candle.is-dodge .cake__bend {
+  animation: cake-dodge var(--dur-900) var(--ease) both;
+}
+
+/* one touch surface over all the candles (cake.js picks the nearest flame) */
+.cake__touch {
+  position: absolute;
+  top: -10%;
+  left: 8%;
+  right: 8%;
+  height: 54%;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* the little two beside the stand */
+.cake__sticker {
+  --sticker-size: clamp(3.5rem, 16vw, 4.25rem);
+  position: absolute;
+  bottom: -3%;
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+.cake__sticker--l {
+  left: -7.5%;
+}
+
+.cake__sticker--r {
+  right: -7.5%;
+}
+
+[data-chapter='cake'][data-cake='dark'] .cake__sticker {
+  opacity: 0.28;
+}
+
+/* ───────────── words ───────────── */
+
+/* the three sets of words share one place, so the cake never moves */
+.cake__words {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+.cake__wish,
+.cake__ask,
+.cake__end {
+  grid-area: 1 / 1;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.cake__wish,
+.cake__instruction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-8);
+  max-width: 20rem;
+  padding-top: var(--sp-8);
+}
+
+.cake__big {
+  font-family: var(--font-display);
+  font-size: var(--fs-25);
+  font-weight: 500;
+  line-height: var(--lh-snug);
+  color: var(--moonlight);
+  text-wrap: balance;
+}
+
+.cake__small {
+  font-size: var(--fs-16);
+  line-height: var(--lh-body);
+  color: var(--moonlight-soft);
+  text-wrap: balance;
+}
+
+.cake__sentence {
+  display: inline-block;
+}
+
+.cake__hint {
+  max-width: 18rem;
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-12);
+  border-top: 1px solid var(--line-soft);
+  font-size: var(--fs-14);
+  line-height: var(--lh-snug);
+  letter-spacing: 0.02em;
+  color: var(--gold-light);
+  text-wrap: balance;
+}
+
+.cake__end {
+  gap: var(--sp-8);
+}
+
+.cake__stays {
+  max-width: 20rem;
+  font-size: var(--fs-31);
+  line-height: 1.12;
+}
+
+.cake__done {
+  font-weight: 400;
+}
+
+.cake__greeting {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-25);
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.005em;
+  color: var(--moonlight);
+}
+
+.cake__name {
+  display: block;
+  width: fit-content;
+  margin: var(--sp-8) auto 0;
+  font-size: clamp(var(--fs-49), 15vw, var(--fs-61));
+  line-height: 1.2;
+}
+
+/* things that come and go during the ritual: they leave quickly and arrive slowly */
+.cake-step {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(var(--sp-12));
+  transition:
+    opacity var(--dur-400) linear,
+    transform var(--dur-400) linear,
+    visibility 0s linear var(--dur-400);
+}
+
+.cake-step.is-on {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity var(--dur-900) var(--ease) var(--dur-200),
+    transform var(--dur-900) var(--ease) var(--dur-200),
+    visibility 0s linear;
+}
+
+/* ───────────── the two buttons share one place ───────────── */
+
+.cake__cta {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+.cake__slot {
+  grid-area: 1 / 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* complete(): everything at once, nothing moves */
+[data-chapter='cake'].cake-instant *,
+[data-chapter='cake'].cake-instant *::before {
+  transition: none !important;
+}
+
+[data-chapter='cake'].cake-instant .cake__wisp,
+[data-chapter='cake'].cake-instant .cake__ember,
+[data-chapter='cake'].cake-instant .cake__bend {
+  animation: none;
+}
+
+@keyframes cake-wisp {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  20% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--flame-size) * var(--wx)), calc(var(--flame-size) * -1.4)) scale(1.7);
+  }
+}
+
+@keyframes cake-ember {
+  0% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cake-dodge {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+  20% {
+    opacity: 0.5;
+    transform: rotate(36deg) scale(0.7, 0.4);
+  }
+  40% {
+    opacity: 0.72;
+    transform: rotate(-12deg) scale(0.84, 0.62);
+  }
+  64% {
+    opacity: 1;
+    transform: rotate(5deg) scale(1.06, 1.24);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cake-dip {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.35;
+  }
+}
+
+/* ───────────── calm mode ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .cake-step,
+  .cake-step.is-on {
+    transform: none;
+    transition:
+      opacity var(--dur-400) linear,
+      visibility 0s linear;
+  }
+
+  .cake__spot {
+    transition: none;
+  }
+
+  .cake__candle.is-puff .cake__wisp {
+    animation-name: none;
+  }
+
+  .cake__candle.is-dodge .cake__bend {
+    animation: cake-dip var(--dur-600) linear both;
+  }
+}

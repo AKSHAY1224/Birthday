@@ -1,0 +1,357 @@
+/* Styles of the chapter "finale": the counter since she said yes, the last lines, the two buttons.
+   The rolling figures use the .digit rules of shared.css. Tokens of tokens.css only. */
+
+[data-chapter='finale'] {
+  --fin-gap: clamp(var(--sp-8), 1.5dvh, var(--sp-16));
+  --fin-days: clamp(var(--fs-49), min(17vw, 7.4dvh), 4.75rem);
+  --fin-kiss: clamp(3.25rem, 15vw, 4rem);
+  --fin-hug: clamp(4.25rem, 19vw, 5.25rem);
+}
+
+.fin {
+  position: relative;
+  z-index: 1;
+}
+
+.fin > .screen__body {
+  gap: var(--fin-gap);
+  padding-block: var(--sp-8);
+}
+
+/* the last screen carries more words than any other: the button row is a little lower */
+.fin > .screen__actions {
+  min-height: 0;
+  padding-bottom: clamp(var(--sp-16), 3dvh, var(--sp-32));
+}
+
+/* a short screen (a small phone, or the browser bars showing): the same stack a little tighter, so that the way
+   on is not cut off even with the extra P.S. line */
+@media (max-height: 760px) {
+  [data-chapter='finale'] {
+    --fin-gap: var(--sp-4);
+    --fin-days: clamp(2.5rem, min(15vw, 6.6dvh), 3.25rem);
+    --fin-hug: 3.5rem;
+  }
+
+  .fin > .screen__body {
+    padding-block: var(--sp-4);
+  }
+
+  .fin > .screen__actions {
+    padding-bottom: var(--sp-12);
+  }
+}
+
+/* ───────────── a few bright stars of its own ───────────── */
+
+.fin-stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fin-star {
+  position: absolute;
+  width: 0.75rem;
+  height: 0.75rem;
+  background: var(--gold-light);
+  clip-path: polygon(50% 0, 59% 41%, 100% 50%, 59% 59%, 50% 100%, 41% 59%, 0 50%, 41% 41%);
+  opacity: 0.2;
+  animation: fin-twinkle calc(var(--dur-900) * 3.2) ease-in-out infinite;
+}
+
+.fin-star:nth-child(1) {
+  left: 9%;
+  top: 11%;
+}
+.fin-star:nth-child(2) {
+  left: 86%;
+  top: 14%;
+  width: 1rem;
+  height: 1rem;
+  animation-delay: calc(var(--dur-900) * -1.1);
+}
+.fin-star:nth-child(3) {
+  left: 71%;
+  top: 8%;
+  width: 0.5rem;
+  height: 0.5rem;
+  animation-delay: calc(var(--dur-900) * -2.3);
+}
+.fin-star:nth-child(4) {
+  left: 4%;
+  top: 38%;
+  width: 0.5rem;
+  height: 0.5rem;
+  animation-delay: calc(var(--dur-900) * -0.6);
+}
+.fin-star:nth-child(5) {
+  left: 93%;
+  top: 44%;
+  animation-delay: calc(var(--dur-900) * -1.8);
+}
+.fin-star:nth-child(6) {
+  left: 24%;
+  top: 6%;
+  width: 0.5rem;
+  height: 0.5rem;
+  animation-delay: calc(var(--dur-900) * -2.8);
+}
+.fin-star:nth-child(7) {
+  left: 6%;
+  top: 68%;
+  animation-delay: calc(var(--dur-900) * -1.4);
+}
+.fin-star:nth-child(8) {
+  left: 90%;
+  top: 73%;
+  width: 0.5rem;
+  height: 0.5rem;
+  animation-delay: calc(var(--dur-900) * -0.3);
+}
+.fin-star:nth-child(9) {
+  left: 47%;
+  top: 4%;
+  width: 0.625rem;
+  height: 0.625rem;
+  animation-delay: calc(var(--dur-900) * -2);
+}
+.fin-star:nth-child(10) {
+  left: 14%;
+  top: 88%;
+  width: 0.5rem;
+  height: 0.5rem;
+  animation-delay: calc(var(--dur-900) * -0.9);
+}
+
+/* ───────────── the counter ───────────── */
+
+.fin-count {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-8);
+  width: 100%;
+}
+
+/* a soft light behind the days */
+.fin-count::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 20rem;
+  height: 11rem;
+  margin: -2rem 0 0 -10rem;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 20%, transparent) 0%, color-mix(in srgb, var(--rose) 7%, transparent) 55%, transparent 100%);
+  pointer-events: none;
+}
+
+.fin-days {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-8);
+  width: 100%;
+}
+
+.fin-days__mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.fin-days__num {
+  display: inline-flex;
+  align-items: baseline;
+  font-size: var(--fin-days);
+  color: var(--gold-light);
+}
+
+.fin-sep {
+  line-height: 1.16;
+}
+
+.fin-unit {
+  font-size: var(--fs-14);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.fin-sticker--kiss,
+.fin-sticker--cheek {
+  --sticker-size: var(--fin-kiss);
+}
+
+.fin-row {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--sp-8);
+}
+
+.fin-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-8);
+  width: 5.5rem;
+}
+
+.fin-cell + .fin-cell {
+  box-shadow: -1px 0 0 var(--line);
+}
+
+.fin-cell__num {
+  display: inline-flex;
+  font-size: var(--fs-31);
+  color: var(--moonlight);
+}
+
+.fin-since {
+  position: relative;
+  margin-top: var(--sp-4);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+/* ───────────── the lines that follow ───────────── */
+
+.fin-step {
+  opacity: 0;
+  transform: translateY(var(--sp-12));
+  transition:
+    opacity var(--dur-900) var(--ease),
+    transform var(--dur-900) var(--ease);
+}
+
+.fin-step.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.fin-tease {
+  max-width: 20rem;
+  font-size: var(--fs-20);
+  line-height: 1.2;
+  color: var(--moonlight-soft);
+  text-wrap: balance;
+}
+
+.fin-last {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  width: 100%;
+}
+
+.fin-rule {
+  margin-bottom: var(--fin-gap);
+}
+
+.fin-last__line {
+  max-width: 22rem;
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-20), 6vw, 1.6875rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--moonlight);
+  text-wrap: balance;
+}
+
+.fin-last__line--2 {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.fin-tell,
+.fin-cta {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.fin-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-12);
+  width: 100%;
+  max-width: 22rem;
+}
+
+.fin-sticker--hug {
+  --sticker-size: var(--fin-hug);
+}
+
+/* a sticker that could not load leaves no hole */
+.fin-sticker:empty {
+  display: none;
+}
+
+.fin-close__line {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 14rem;
+  line-height: 1.15;
+  text-align: left;
+  text-wrap: balance;
+}
+
+.fin-sticker--hug:empty + .fin-close__line {
+  max-width: 19rem;
+  text-align: center;
+}
+
+.fin-credits {
+  max-width: 19rem;
+  font-size: var(--fs-14);
+  line-height: var(--lh-snug);
+  letter-spacing: 0.02em;
+  color: var(--moonlight-soft);
+  text-wrap: balance;
+}
+
+/* ───────────── complete(): everything at once, nothing moves ───────────── */
+
+[data-chapter='finale'].fin-instant *,
+[data-chapter='finale'].fin-instant *::before {
+  transition: none !important;
+}
+
+@keyframes fin-twinkle {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.95;
+    transform: none;
+  }
+}
+
+/* ───────────── calm mode ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .fin-star {
+    opacity: 0.6;
+    animation: none;
+  }
+
+  .fin-step {
+    transform: none;
+    transition: opacity var(--dur-400) linear;
+  }
+}

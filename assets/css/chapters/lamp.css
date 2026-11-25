@@ -1,0 +1,655 @@
+/* Styles of the chapter "lamp". The flame itself (js/fx/flame.js) is the ".flame" block of shared.css.
+   Tokens of tokens.css only: the clay colours are mixed from rose and gold. */
+
+/* ───────────── the chapter ───────────── */
+
+[data-chapter='lamp'] {
+  --lamp-size: clamp(12.5rem, min(62vw, 30dvh), 16rem);
+  --lamp-x: 50%;
+  --lamp-y: 36%;
+  --lamp-clay: color-mix(in srgb, var(--rose-deep) 42%, var(--gold-deep));
+  --lamp-clay-light: color-mix(in srgb, var(--lamp-clay) 62%, var(--gold-light));
+  --lamp-clay-hi: color-mix(in srgb, var(--lamp-clay) 28%, var(--gold-light));
+  --lamp-clay-dark: color-mix(in srgb, var(--lamp-clay) 56%, var(--night));
+  --lamp-clay-deep: color-mix(in srgb, var(--lamp-clay) 28%, var(--night));
+}
+
+.lamp {
+  position: relative;
+  z-index: 1;
+}
+
+/* dark and quiet before the flame; the veil lifts when it catches */
+.lamp__veil,
+.lamp__glow,
+.lamp__near {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lamp__veil {
+  background: var(--night);
+  opacity: 0.62;
+  transition: opacity calc(var(--dur-900) * 2) var(--ease);
+}
+
+/* the light spreads: the near glow comes first, the wide one follows (opacity only, so no edge ever shows) */
+.lamp__glow {
+  --lamp-amber: color-mix(in srgb, var(--gold) 72%, var(--rose));
+  --lamp-ember: color-mix(in srgb, var(--gold-deep) 62%, var(--rose));
+  background: radial-gradient(
+    circle at var(--lamp-x) var(--lamp-y),
+    color-mix(in srgb, var(--lamp-amber) 26%, transparent) 0%,
+    color-mix(in srgb, var(--lamp-amber) 17%, transparent) 16%,
+    color-mix(in srgb, var(--lamp-ember) 10%, transparent) 36%,
+    color-mix(in srgb, var(--rose-deep) 5%, transparent) 60%,
+    transparent 84%
+  );
+  opacity: 0;
+  transition: opacity calc(var(--dur-900) * 2.4) var(--ease) var(--dur-200);
+}
+
+.lamp__glow-near,
+.lamp__glow-breath {
+  position: absolute;
+  inset: 0;
+}
+
+.lamp__glow-near {
+  background: radial-gradient(circle at var(--lamp-x) var(--lamp-y), color-mix(in srgb, var(--gold) 24%, transparent) 0%, color-mix(in srgb, var(--gold) 9%, transparent) 20%, transparent 40%);
+}
+
+.lamp__glow-breath {
+  background: radial-gradient(circle at var(--lamp-x) var(--lamp-y), color-mix(in srgb, var(--gold-light) 12%, transparent) 0%, transparent 34%);
+  opacity: 0;
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__veil {
+  opacity: 0;
+}
+
+.lamp__near {
+  opacity: 0;
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__glow,
+[data-chapter='lamp'][data-lamp='lit'] .lamp__near {
+  opacity: 1;
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__glow-breath {
+  animation: lamp-breathe calc(var(--dur-900) * 3.4) ease-in-out var(--dur-900) infinite;
+}
+
+/* ── the lamp and its ring ── */
+
+.lamp__stage {
+  position: relative;
+  flex: none;
+  width: var(--lamp-size);
+  height: var(--lamp-size);
+}
+
+.lamp__hold {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transition: transform var(--dur-600) var(--ease);
+}
+
+.lamp__hold.is-held {
+  transform: scale(0.972);
+}
+
+.lamp__hold:disabled {
+  cursor: default;
+}
+
+.lamp__ring,
+.lamp__track,
+.lamp__half,
+.lamp__arc,
+.lamp__head,
+.lamp__flash {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.lamp__track {
+  border: 1px solid var(--line);
+  transition: opacity var(--dur-600) linear;
+  animation: lamp-invite calc(var(--dur-900) * 3) ease-in-out infinite;
+}
+
+.lamp__half,
+.lamp__head {
+  transition: opacity var(--dur-600) linear;
+}
+
+.lamp__half--a {
+  clip-path: inset(0 0 0 50%);
+}
+
+.lamp__half--b {
+  clip-path: inset(0 50% 0 0);
+}
+
+.lamp__arc {
+  border: 2px solid var(--gold);
+}
+
+.lamp__half--a .lamp__arc {
+  clip-path: inset(0 50% 0 0);
+}
+
+.lamp__half--b .lamp__arc {
+  clip-path: inset(0 0 0 50%);
+}
+
+.lamp__head-dot {
+  position: absolute;
+  top: -0.1875rem;
+  left: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: -0.25rem;
+  border-radius: 50%;
+  background: var(--gold-light);
+  box-shadow: var(--glow-gold-strong);
+}
+
+.lamp__flash {
+  border: 2px solid var(--gold-light);
+  opacity: 0;
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__track,
+[data-chapter='lamp'][data-lamp='lit'] .lamp__half,
+[data-chapter='lamp'][data-lamp='lit'] .lamp__head {
+  opacity: 0;
+  animation: none;
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__flash {
+  animation: lamp-flash var(--dur-900) var(--ease) both;
+}
+
+/* the ground under the lamp: a shadow, and a pool of light once it burns */
+.lamp__ground,
+.lamp__pool {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.lamp__ground {
+  top: 76%;
+  left: 17%;
+  width: 66%;
+  height: 9%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--night) 90%, transparent) 0%, color-mix(in srgb, var(--night) 55%, transparent) 55%, transparent 100%);
+}
+
+.lamp__pool {
+  top: 68%;
+  left: -16%;
+  width: 132%;
+  height: 26%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 30%, transparent) 0%, color-mix(in srgb, var(--gold) 12%, transparent) 50%, transparent 100%);
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity calc(var(--dur-900) * 1.5) var(--ease),
+    transform calc(var(--dur-900) * 1.5) var(--ease);
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__pool {
+  opacity: 1;
+  transform: none;
+}
+
+/* the clay lamp */
+.diya {
+  position: absolute;
+  top: 37%;
+  left: 15%;
+  width: 70%;
+  height: auto;
+  max-width: none;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.diya__stop--deep {
+  stop-color: var(--lamp-clay-deep);
+}
+.diya__stop--dark {
+  stop-color: var(--lamp-clay-dark);
+}
+.diya__stop--clay {
+  stop-color: var(--lamp-clay);
+}
+.diya__stop--light {
+  stop-color: var(--lamp-clay-light);
+}
+.diya__stop--hi {
+  stop-color: var(--lamp-clay-hi);
+}
+.diya__stop--clear {
+  stop-color: var(--night);
+  stop-opacity: 0;
+}
+.diya__stop--shade {
+  stop-color: var(--night);
+  stop-opacity: 0.55;
+}
+.diya__stop--oil-1 {
+  stop-color: color-mix(in srgb, var(--gold-deep) 62%, var(--night));
+}
+.diya__stop--oil-2 {
+  stop-color: color-mix(in srgb, var(--gold-deep) 24%, var(--night));
+}
+.diya__stop--glow-1 {
+  stop-color: var(--gold-light);
+  stop-opacity: 0.9;
+}
+.diya__stop--glow-0 {
+  stop-color: var(--gold);
+  stop-opacity: 0;
+}
+.diya__stop--warm-1 {
+  stop-color: var(--gold);
+  stop-opacity: 0.42;
+}
+.diya__stop--warm-0 {
+  stop-color: var(--gold);
+  stop-opacity: 0;
+}
+.diya__stop--wick-tip {
+  stop-color: color-mix(in srgb, var(--paper-2) 50%, var(--ink));
+}
+.diya__stop--wick {
+  stop-color: var(--paper-2);
+}
+
+.diya__foot,
+.diya__inside {
+  fill: var(--lamp-clay-deep);
+}
+
+.diya__band,
+.diya__glint,
+.diya__rim-light,
+.diya__rim-spark,
+.diya__wick {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.diya__band {
+  stroke: var(--gold-light);
+  stroke-width: 1.3;
+  opacity: 0.42;
+}
+
+.diya__dot {
+  fill: var(--gold-light);
+  opacity: 0.6;
+}
+
+.diya__glint {
+  stroke: var(--gold-light);
+  stroke-width: 1.2;
+  opacity: 0.32;
+}
+
+.diya__rim-light {
+  stroke: var(--lamp-clay-hi);
+  stroke-width: 1.5;
+  opacity: 0.8;
+}
+
+.diya__rim-spark {
+  stroke: var(--paper);
+  stroke-width: 2;
+  opacity: 0.6;
+}
+
+.diya__rim-warm {
+  fill: var(--gold-light);
+  opacity: 0.2;
+}
+
+.diya__wick {
+  stroke-width: 6;
+}
+
+/* unlit: the clay sits in shadow; lit: warm light falls on it */
+.diya__dim {
+  fill: var(--night);
+  opacity: 0.5;
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+.diya__lit {
+  opacity: 0;
+  transition: opacity var(--dur-900) var(--ease);
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .diya__dim {
+  opacity: 0;
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .diya__lit {
+  opacity: 1;
+}
+
+/* the flame stands on the tip of the wick */
+.lamp__flame {
+  --flame-size: calc(var(--lamp-size) * 0.37);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 47.4%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.lamp__sparks {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.lamp__spark {
+  position: absolute;
+  top: -0.125rem;
+  left: -0.125rem;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background: var(--gold-light);
+  box-shadow: var(--glow-gold);
+  opacity: 0;
+}
+
+.lamp__spark--1 {
+  --sx: -2.4rem;
+  --sy: -5.2rem;
+  --sd: 0ms;
+}
+.lamp__spark--2 {
+  --sx: 2rem;
+  --sy: -6rem;
+  --sd: 90ms;
+}
+.lamp__spark--3 {
+  --sx: -0.8rem;
+  --sy: -7rem;
+  --sd: 180ms;
+}
+.lamp__spark--4 {
+  --sx: 3.4rem;
+  --sy: -3.8rem;
+  --sd: 60ms;
+}
+.lamp__spark--5 {
+  --sx: -3.6rem;
+  --sy: -3.2rem;
+  --sd: 220ms;
+}
+.lamp__spark--6 {
+  --sx: 0.9rem;
+  --sy: -8rem;
+  --sd: 300ms;
+}
+.lamp__spark--7 {
+  --sx: -1.8rem;
+  --sy: -6.4rem;
+  --sd: 380ms;
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__spark {
+  animation: lamp-spark calc(var(--dur-900) * 1.8) var(--ease) var(--sd) both;
+}
+
+/* the little two walk up to the light */
+.lamp__sticker {
+  --sticker-size: clamp(4.5rem, 20vw, 5.25rem);
+  position: absolute;
+  left: 82%;
+  bottom: 14.5%;
+}
+
+/* ── words ── */
+
+.lamp__words {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+.lamp__prompt,
+.lamp__verse {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lamp__prompt {
+  align-self: start;
+  gap: var(--sp-8);
+  padding-top: var(--sp-8);
+}
+
+.lamp__instruction {
+  max-width: 13rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-25);
+  font-weight: 500;
+  line-height: var(--lh-snug);
+  color: var(--moonlight);
+  text-wrap: balance;
+}
+
+.lamp__hint {
+  min-height: 1.3em;
+  font-size: var(--fs-14);
+  line-height: var(--lh-snug);
+  letter-spacing: 0.03em;
+  color: var(--moonlight-soft);
+  opacity: 0;
+  transform: translateY(var(--sp-4));
+  transition:
+    opacity var(--dur-600) var(--ease),
+    transform var(--dur-600) var(--ease);
+}
+
+.lamp__hint.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__prompt {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-400) linear,
+    visibility 0s linear var(--dur-400);
+}
+
+.lamp__verse {
+  gap: var(--sp-8);
+  visibility: hidden;
+}
+
+[data-chapter='lamp'][data-lamp='lit'] .lamp__verse {
+  visibility: visible;
+}
+
+.lamp__line--1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-20);
+  line-height: var(--lh-snug);
+  color: var(--moonlight);
+}
+
+.lamp__name {
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  font-size: var(--fs-49);
+  line-height: 1.2;
+}
+
+.lamp__line--2 {
+  font-size: var(--fs-16);
+  line-height: var(--lh-body);
+  color: var(--moonlight-soft);
+}
+
+.lamp__line--3 {
+  margin-top: var(--sp-4);
+  font-family: var(--font-hand);
+  font-size: var(--fs-25);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  color: var(--gold-light);
+}
+
+/* the timed reveal after the flame: lines, sticker, button */
+.lamp-step {
+  opacity: 0;
+  transform: translateY(var(--sp-12));
+  transition:
+    opacity var(--dur-900) var(--ease),
+    transform var(--dur-900) var(--ease);
+}
+
+.lamp-step.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.lamp__cta {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* complete(): everything at once, nothing moves */
+[data-chapter='lamp'].lamp-instant *,
+[data-chapter='lamp'].lamp-instant *::before {
+  transition: none !important;
+}
+
+[data-chapter='lamp'].lamp-instant .lamp__flash,
+[data-chapter='lamp'].lamp-instant .lamp__spark {
+  animation: none;
+}
+
+/* tab hidden: the loops wait */
+[data-chapter='lamp'].is-paused .lamp__track,
+[data-chapter='lamp'].is-paused .lamp__glow-breath {
+  animation-play-state: paused;
+}
+
+@keyframes lamp-invite {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes lamp-flash {
+  from {
+    opacity: 0.9;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.14);
+  }
+}
+
+@keyframes lamp-spark {
+  0% {
+    opacity: 0;
+    transform: none;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--sx), var(--sy)) scale(0.3);
+  }
+}
+
+@keyframes lamp-breathe {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  28% {
+    opacity: 0.9;
+  }
+  57% {
+    opacity: 0.3;
+  }
+  81% {
+    opacity: 1;
+  }
+}
+
+/* ───────────── calm mode ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp__track,
+  [data-chapter='lamp'][data-lamp='lit'] .lamp__glow-breath,
+  [data-chapter='lamp'][data-lamp='lit'] .lamp__flash,
+  [data-chapter='lamp'][data-lamp='lit'] .lamp__spark {
+    animation: none;
+  }
+
+  .lamp__glow,
+  .lamp__near,
+  .lamp__pool {
+    transform: none;
+    transition: opacity var(--dur-600) linear;
+  }
+
+  .lamp__hold,
+  .lamp__hold.is-held {
+    transform: none;
+    transition: none;
+  }
+
+  .lamp-step,
+  .lamp__hint {
+    transform: none;
+    transition: opacity var(--dur-400) linear;
+  }
+}

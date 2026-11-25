@@ -1,0 +1,15 @@
+{
+  "name": "Open at midnight",
+  "short_name": "Midnight",
+  "description": "Opens at 12:00 AM · 28 November. Sound on.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#070B1A",
+  "theme_color": "#070B1A",
+  "icons": [
+    { "src": "assets/img/share/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/img/share/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

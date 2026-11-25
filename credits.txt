@@ -1,0 +1,48 @@
+CREDITS
+
+Everything on this page that was not made for it.
+
+FONTS
+Bodoni Moda - Copyright 2020 The Bodoni Moda Project Authors (https://github.com/indestructible-type/Bodoni)
+Jost - Copyright 2020 The Jost Project Authors (https://github.com/indestructible-type)
+Caveat - Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)
+Pinyon Script - Copyright 2024 The Pinyon Project Authors (https://github.com/SorkinType/Pinyon)
+These fonts are licensed under the SIL Open Font License, Version 1.1.
+The full licence text is in assets/fonts/ofl.txt and at https://openfontlicense.org
+
+MUSIC
+"Dream Culture" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
+
+"Carefree" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
+
+"Somewhere Sunny (ver 2)" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
+
+"There is Romance" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
+
+"Angel Share" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
+
+Changes: all tracks were re-encoded to 128 kbps with a short fade at the start and at the end.
+
+LIBRARIES
+GSAP 3.15.1 - Copyright 2026, GreenSock. GSAP Standard "No Charge" License - https://gsap.com/standard-license
+canvas-confetti 1.9.4 - Copyright (c) 2020, Kiril Vatev. ISC License - https://github.com/catdad/canvas-confetti
+Details and the ISC text are in assets/vendor/licenses.md
+
+STICKERS
+The bear and panda stickers ("Dudu and Bubu"; official names Yier and Bubu) are loaded straight from Tenor
+(https://tenor.com); no sticker file is stored here. The characters were created by the illustrator Huang Xiao B
+and belong to their creator. They are used here without a licence, on a private, non-commercial page made as a
+birthday gift.
+
+EVERYTHING ELSE
+The drawings, the pictures, the sound effects and the code were made for this page.

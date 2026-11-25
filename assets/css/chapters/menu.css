@@ -1,0 +1,135 @@
+/* The menu after the finale: her name, one line, ten small cards. Tokens of tokens.css only. */
+
+.menu > .screen__body {
+  gap: clamp(var(--sp-12), 2.2dvh, var(--sp-24));
+  padding-block: var(--sp-16);
+}
+
+/* ───────────── the heading ───────────── */
+
+.menu__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.menu__sticker {
+  --sticker-size: clamp(4.25rem, 10dvh, 6rem);
+}
+
+/* a sticker that could not load leaves no hole */
+.menu__sticker:empty {
+  display: none;
+}
+
+.menu__name {
+  font-size: clamp(var(--fs-49), 16vw, var(--fs-61));
+  line-height: 1.2;
+}
+
+.menu__title {
+  margin: 0 0 var(--sp-8);
+  font-size: var(--fs-25);
+  line-height: 1.15;
+  color: var(--moonlight-soft);
+  text-wrap: balance;
+}
+
+/* ───────────── the ten parts ───────────── */
+
+.menu__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: var(--sp-12);
+  width: 100%;
+  max-width: 24rem;
+}
+
+.menu__item {
+  display: flex;
+}
+
+.menu-card {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  min-width: 0;
+  min-height: 3.75rem;
+  padding: var(--sp-8);
+  border: 0;
+  border-radius: var(--r-16);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--deep-blue-2) 62%, transparent) 0%, var(--panel) 100%);
+  box-shadow:
+    var(--shadow-1),
+    inset 0 0 0 1px var(--line-soft),
+    inset 0 1px 0 color-mix(in srgb, var(--gold-light) 16%, transparent);
+  color: var(--moonlight);
+  font-family: var(--font-body);
+  font-size: var(--fs-16);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.menu-card:active {
+  box-shadow:
+    var(--shadow-1),
+    inset 0 0 0 1px var(--line);
+}
+
+.menu-card__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 20%, transparent) 0%, color-mix(in srgb, var(--gold) 6%, transparent) 100%);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--gold-light);
+}
+
+.menu-card__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.menu-card__label {
+  min-width: 0;
+}
+
+/* ───────────── the foot ───────────── */
+
+.menu__foot {
+  display: flex;
+  justify-content: center;
+}
+
+.menu__credits {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 6rem;
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-16);
+  color: var(--moonlight-soft);
+  font-size: var(--fs-14);
+  letter-spacing: 0.08em;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 0.3em;
+  touch-action: manipulation;
+}

@@ -1,0 +1,211 @@
+{
+ "note": "Dudu-Bubu stickers, shown straight from Tenor. They belong to their creator; no sticker file is stored in this site. Optional per sticker: crop { top, right, bottom, left } hides that share (0 to 0.5) of the square picture box, for a caption drawn into the picture; fade 'bottom' softens a body that is cut off at the lower edge.",
+ "stickers": [
+  {
+   "key": "s01",
+   "chapter": "waiting-room",
+   "mood": "under the stars",
+   "media": "https://media.tenor.com/47MEc3Ifl28AAAAm/bubu-dudu-bubu.webp"
+  },
+  {
+   "key": "s02",
+   "chapter": "waiting-room",
+   "mood": "asleep",
+   "media": "https://media.tenor.com/yGVPGGRTdA0AAAAm/bubududu-panda.webp"
+  },
+  {
+   "key": "s03",
+   "chapter": "waiting-room",
+   "mood": "lazy on a pillow",
+   "media": "https://media.tenor.com/uX_IkW6vL6kAAAAm/bean-bag-lazy.webp",
+   "crop": { "top": 0.195 }
+  },
+  {
+   "key": "s04",
+   "chapter": "waiting-room",
+   "mood": "peeking (no peeking!)",
+   "media": "https://media.tenor.com/45nU9u-NDRwAAAAm/bubu-dudu-sseeyall.webp"
+  },
+  {
+   "key": "s05",
+   "chapter": "midnight",
+   "mood": "ringing the bell",
+   "media": "https://media.tenor.com/UHNEl6o5GtYAAAAm/sseeyall-bubu-dudu.webp",
+   "crop": { "top": 0.17 }
+  },
+  {
+   "key": "s06",
+   "chapter": "midnight",
+   "mood": "dancing",
+   "media": "https://media.tenor.com/7O1XgIqNWG4AAAAm/dudu-bubu-playing-funny.webp"
+  },
+  {
+   "key": "s07",
+   "chapter": "midnight",
+   "mood": "hearts and sparkles",
+   "media": "https://media.tenor.com/jKWsh55iOFAAAAAm/bubu-dudu-sseeyall.webp"
+  },
+  {
+   "key": "s08",
+   "chapter": "lamp",
+   "mood": "carrying her along",
+   "media": "https://media.tenor.com/0_jT8Pyszi8AAAAm/bubu-dudu-dudu-carry.webp"
+  },
+  {
+   "key": "s09",
+   "chapter": "frames",
+   "mood": "sitting together, one in a scarf",
+   "media": "https://media.tenor.com/mW3l4xgvwzMAAAAm/bubu-dudu-sseeyall.webp"
+  },
+  {
+   "key": "s10",
+   "chapter": "frames",
+   "mood": "on a bench",
+   "media": "https://media.tenor.com/KjfRHgiFg8EAAAAm/tkthao219-bubududu.webp"
+  },
+  {
+   "key": "s11",
+   "chapter": "frames",
+   "mood": "side by side",
+   "media": "https://media.tenor.com/tnTcMaEkXzAAAAAm/tonibear-bubu.webp"
+  },
+  {
+   "key": "s12",
+   "chapter": "question-no",
+   "mood": "crying bear",
+   "media": "https://media.tenor.com/Q2RDMt5BnMEAAAAm/bubu-dudu-sseeyall.webp"
+  },
+  {
+   "key": "s13",
+   "chapter": "question-no",
+   "mood": "crying panda",
+   "media": "https://media.tenor.com/GaX7wejaJGAAAAAm/bubu-sad.webp"
+  },
+  {
+   "key": "s14",
+   "chapter": "question-no",
+   "mood": "tears",
+   "media": "https://media.tenor.com/6zqWuLOaYyEAAAAm/cry-bubu.webp"
+  },
+  {
+   "key": "s15",
+   "chapter": "question-no",
+   "mood": "angry fist",
+   "media": "https://media.tenor.com/nF_grpASXygAAAAm/bubu-dudu.webp",
+   "fade": "bottom"
+  },
+  {
+   "key": "s16",
+   "chapter": "question-no",
+   "mood": "angry, hands up",
+   "media": "https://media.tenor.com/RGDV6ZLjtGIAAAAm/sseeyall-bubu-dudu.webp"
+  },
+  {
+   "key": "s17",
+   "chapter": "question-no",
+   "mood": "grumpy",
+   "media": "https://media.tenor.com/Ajaii6NSfEkAAAAm/dudu-question-dudu-bubu.webp",
+   "crop": { "left": 0.21 },
+   "fade": "bottom"
+  },
+  {
+   "key": "s18",
+   "chapter": "question-yes",
+   "mood": "blushing",
+   "media": "https://media.tenor.com/DLtV1VJvZvUAAAAm/bubu-dudu-bubu-kiss.webp",
+   "fade": "bottom"
+  },
+  {
+   "key": "s19",
+   "chapter": "question-yes",
+   "mood": "hug with hearts",
+   "media": "https://media.tenor.com/wcDQ5VaLa9MAAAAm/bubu-dudu.webp"
+  },
+  {
+   "key": "s20",
+   "chapter": "question-yes",
+   "mood": "cheek kiss",
+   "media": "https://media.tenor.com/SsZwrv6-ev8AAAAm/tkthao219-bubududu.webp"
+  },
+  {
+   "key": "s21",
+   "chapter": "scratch-prize",
+   "mood": "big hug",
+   "media": "https://media.tenor.com/r0VCmLiA3mEAAAAm/sseeyall-bubu-dudu.webp"
+  },
+  {
+   "key": "s22",
+   "chapter": "reasons",
+   "mood": "heart on head",
+   "media": "https://media.tenor.com/xbtn1g0Fu30AAAAm/tkthao219-bubududu.webp"
+  },
+  {
+   "key": "s23",
+   "chapter": "reasons",
+   "mood": "I love you sign",
+   "media": "https://media.tenor.com/1iQ0Bqc02KsAAAAm/bubu-dudu-love.webp"
+  },
+  {
+   "key": "s24",
+   "chapter": "reasons",
+   "mood": "eating from a bowl",
+   "media": "https://media.tenor.com/XX5JR_VxW0YAAAAm/bubu-dudu-bubu.webp"
+  },
+  {
+   "key": "s25",
+   "chapter": "reasons",
+   "mood": "held in arms",
+   "media": "https://media.tenor.com/n498jDI-rkcAAAAm/tkthao219-bubududu.webp"
+  },
+  {
+   "key": "s26",
+   "chapter": "cake",
+   "mood": "treats",
+   "media": "https://media.tenor.com/D0dTqJDq0BMAAAAm/tkthao219-bubududu.webp"
+  },
+  {
+   "key": "s27",
+   "chapter": "cake",
+   "mood": "red envelope",
+   "media": "https://media.tenor.com/Xk7lPYW8xBkAAAAm/mimibubu.webp",
+   "crop": { "left": 0.22 }
+  },
+  {
+   "key": "s28",
+   "chapter": "gifts",
+   "mood": "bouquet of flowers",
+   "media": "https://media.tenor.com/G38QWGOX2tMAAAAm/dudu-propos-bubu-dudu-love-bubu.webp",
+   "crop": { "top": 0.26 }
+  },
+  {
+   "key": "s29",
+   "chapter": "finale",
+   "mood": "kiss",
+   "media": "https://media.tenor.com/JcPATwwdUOQAAAAm/bubu-dudu-sseeyall.webp"
+  },
+  {
+   "key": "s30",
+   "chapter": "finale",
+   "mood": "cheek kiss",
+   "media": "https://media.tenor.com/SsZwrv6-ev8AAAAm/tkthao219-bubududu.webp"
+  },
+  {
+   "key": "s31",
+   "chapter": "finale",
+   "mood": "big hug",
+   "media": "https://media.tenor.com/F9Q3thp6tzUAAAAm/bubu-bubu-dudu.webp"
+  },
+  {
+   "key": "s32",
+   "chapter": "loader",
+   "mood": "coffee while waiting",
+   "media": "https://media.tenor.com/3_9Gh4fObjMAAAAm/bubu-dudu-dudu.webp"
+  },
+  {
+   "key": "s33",
+   "chapter": "error",
+   "mood": "sad",
+   "media": "https://media.tenor.com/NbfYAAyKtmkAAAAm/bubu-dudu-sad.webp"
+  }
+ ]
+}

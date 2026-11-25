@@ -1,0 +1,502 @@
+/* Styles of the chapter "frames": a scrapbook page on the night sky — the square hero print, the second
+   large print, two small tilted polaroids, and the calm large view. Tokens of tokens.css only. */
+
+[data-chapter='frames'] {
+  --fr-edge: var(--sp-12); /* the paper border around a large print */
+  --fr-corner: calc(var(--r-8) / 4); /* prints are cut, not rounded */
+  --fr-tape: color-mix(in srgb, var(--gold-light) 82%, transparent);
+  --fr-photo-line: color-mix(in srgb, var(--ink) 16%, transparent);
+  --fr-develop: calc(var(--dur-900) * 1.5); /* a print takes its time to develop */
+}
+
+/* The page scrolls inside the chapter. What slides up under the top bar fades into the sky, so the
+   progress dots and the sound button never sit on a photo. While a frame is open large the page rests. */
+[data-chapter='frames']:not(.is-viewing) {
+  --fr-fade: linear-gradient(180deg, transparent calc(var(--safe-top) + var(--sp-24)), var(--night) calc(var(--safe-top) + var(--hud-h) + var(--sp-12)));
+  -webkit-mask-image: var(--fr-fade);
+  mask-image: var(--fr-fade);
+}
+
+[data-chapter='frames'].is-viewing {
+  overflow-y: hidden;
+}
+
+.frames .screen__body {
+  justify-content: flex-start;
+  gap: 0;
+  padding-block: var(--sp-12) var(--sp-24);
+}
+
+.fr-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-8);
+  width: 100%;
+}
+
+/* ───────────── a frame: the slot slides in, the print inside it is tilted ───────────── */
+
+.fr-item {
+  position: relative;
+  flex: none;
+  opacity: 0;
+  transform: translateY(var(--sp-24));
+  transition:
+    opacity var(--dur-700) var(--ease),
+    transform var(--dur-900) var(--ease);
+}
+
+.fr-item.is-risen {
+  opacity: 1;
+  transform: none;
+}
+
+.fr-item--a {
+  --fr-tilt: -1.2deg;
+  width: min(100%, 23rem);
+  margin-top: var(--sp-48);
+  transition-delay: calc(var(--stagger) * 2);
+}
+
+.fr-item--b {
+  --fr-tilt: 1.4deg;
+  align-self: flex-end;
+  width: min(95%, 21.75rem);
+  margin-top: var(--sp-64);
+  transition-delay: calc(var(--stagger) * 4);
+}
+
+.fr-print {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: var(--fr-edge) var(--fr-edge) var(--sp-12);
+  border: 0;
+  border-radius: var(--fr-corner);
+  text-align: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transform: rotate(var(--fr-tilt, 0deg));
+  transition: transform var(--dur-200) ease-out;
+}
+
+.fr-print:active {
+  transform: rotate(var(--fr-tilt, 0deg)) scale(0.985);
+}
+
+/* ── the picture and its two "undeveloped" layers ── */
+
+.fr-photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: var(--fr-ratio, 1 / 1);
+  border-radius: 1px;
+  background: var(--paper-2);
+}
+
+.fr-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px var(--fr-photo-line);
+  pointer-events: none;
+}
+
+.fr-img,
+.fr-soft {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* the tiny copy, soft and pale: what a print shows before it has developed */
+.fr-soft {
+  filter: blur(0.5rem) saturate(0.6);
+  transform: scale(1.14);
+  transition: opacity var(--fr-develop) ease-in-out calc(var(--fr-wait, 0ms) + var(--dur-900));
+}
+
+.fr-wash {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  opacity: 0.84;
+  transition: opacity var(--fr-develop) ease-in-out calc(var(--fr-wait, 0ms) + var(--dur-200));
+}
+
+/* the hero starts from a white print, once its paper has landed */
+.fr-item--a {
+  --fr-wait: var(--dur-600);
+}
+
+.fr-item--a .fr-wash {
+  opacity: 1;
+}
+
+.fr-item.is-developed .fr-soft,
+.fr-item.is-developed .fr-wash,
+.fr-item.is-failed .fr-soft,
+.fr-item.is-failed .fr-wash {
+  opacity: 0;
+}
+
+/* a photo that could not be loaded: the line from content.json on the paper */
+.fr-error {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-12);
+  background: var(--paper-2);
+  font-size: var(--fs-20);
+  line-height: var(--lh-snug);
+  text-wrap: balance;
+}
+
+.paper .fr-error {
+  color: var(--ink-soft);
+}
+
+/* ── handwriting on the paper ── */
+
+.fr-caption {
+  display: block;
+  padding: var(--sp-12) var(--sp-4) var(--sp-4);
+  line-height: var(--lh-tight);
+  text-wrap: balance;
+}
+
+/* a sentence stays together; the line breaks between two */
+.fr-sentence {
+  display: inline-block;
+}
+
+/* ── what holds the prints on the page ── */
+
+.fr-print .fr-tape {
+  position: absolute;
+  top: calc(var(--sp-12) * -1);
+  left: 50%;
+  width: 5.5rem;
+  height: 1.625rem;
+  margin-left: -2.75rem;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--paper) 40%, transparent) 0%, transparent 55%),
+    var(--fr-tape);
+  clip-path: polygon(0 0, 2.5% 12%, 0 25%, 2.5% 38%, 0 50%, 2.5% 62%, 0 75%, 2.5% 88%, 0 100%, 100% 100%, 97.5% 88%, 100% 75%, 97.5% 62%, 100% 50%, 97.5% 38%, 100% 25%, 97.5% 12%, 100% 0);
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
+
+.fr-print .fr-corner {
+  position: absolute;
+  width: 1.625rem;
+  height: 1.625rem;
+  background: var(--grad-foil);
+  pointer-events: none;
+}
+
+.fr-print .fr-corner--tl {
+  top: calc(var(--sp-4) * -1);
+  left: calc(var(--sp-4) * -1);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.fr-print .fr-corner--tr {
+  top: calc(var(--sp-4) * -1);
+  right: calc(var(--sp-4) * -1);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.fr-print .fr-corner--bl {
+  bottom: calc(var(--sp-4) * -1);
+  left: calc(var(--sp-4) * -1);
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+.fr-print .fr-corner--br {
+  right: calc(var(--sp-4) * -1);
+  bottom: calc(var(--sp-4) * -1);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+/* ── the little two sit on the top edge of the large prints ── */
+
+.fr-print .fr-sticker {
+  --sticker-size: 4rem;
+  position: absolute;
+  bottom: calc(100% - var(--sp-12));
+  pointer-events: none;
+}
+
+.fr-item--a .fr-sticker {
+  right: var(--sp-12);
+}
+
+.fr-item--b .fr-sticker {
+  left: var(--sp-48);
+}
+
+/* ───────────── the two small polaroids ───────────── */
+
+.fr-pair {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: var(--sp-48);
+}
+
+.fr-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-16);
+  width: 55%;
+}
+
+.fr-item--small {
+  width: 100%;
+}
+
+.fr-pair > .fr-item--small {
+  width: 39%;
+  margin-top: var(--sp-32);
+}
+
+.fr-item--c {
+  --fr-tilt: -3deg;
+}
+
+.fr-item--d {
+  --fr-tilt: 3.5deg;
+  transition-delay: var(--stagger);
+}
+
+.fr-item--small .fr-print {
+  padding: var(--sp-8) var(--sp-8) var(--sp-8);
+}
+
+/* on a narrow phone the note gets a little smaller, so that each sentence still has its own line */
+.fr-item--small .fr-caption {
+  padding: var(--sp-8) 0 var(--sp-4);
+  font-size: clamp(1rem, 5vw, var(--fs-20));
+}
+
+.fr-item--small .fr-tape {
+  top: calc(var(--sp-8) * -1);
+  width: 3.5rem;
+  height: 1.25rem;
+  margin-left: -1.75rem;
+  transform: rotate(5deg);
+}
+
+.fr-item--d .fr-tape {
+  transform: rotate(-6deg);
+}
+
+.fr-friends {
+  --sticker-size: 4.5rem;
+}
+
+/* ───────────── the main button ───────────── */
+
+.fr-cta {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(var(--sp-12));
+  transition:
+    opacity var(--dur-900) var(--ease),
+    transform var(--dur-900) var(--ease);
+}
+
+.fr-cta.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* reset and complete(): everything at once, nothing moves */
+[data-chapter='frames'].fr-instant .fr-item,
+[data-chapter='frames'].fr-instant .fr-soft,
+[data-chapter='frames'].fr-instant .fr-wash,
+[data-chapter='frames'].fr-instant .fr-cta {
+  transition: none !important;
+}
+
+/* ───────────── the large view ───────────── */
+
+.fr-view {
+  --fr-view-h: calc(100dvh - var(--hud-h) - 15rem); /* what is left for the picture between top bar, caption and close */
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--safe-top) + var(--hud-h) + var(--sp-8)) calc(var(--safe-right) + var(--sp-16)) calc(var(--safe-bottom) + 6.5rem)
+    calc(var(--safe-left) + var(--sp-16));
+  opacity: 0;
+  touch-action: none;
+  overscroll-behavior: contain;
+  transition: opacity var(--dur-600) var(--ease);
+}
+
+.fr-view.is-open {
+  opacity: 1;
+}
+
+.fr-view__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 60% at 50% 42%, color-mix(in srgb, var(--deep-blue) 60%, transparent) 0%, transparent 100%),
+    color-mix(in srgb, var(--night) 98%, transparent);
+}
+
+.fr-view__figure {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-16);
+  width: 100%;
+  max-width: var(--col-max);
+  transform: translateY(var(--sp-12)) scale(0.95);
+  transition: transform var(--dur-700) var(--ease);
+}
+
+.fr-view.is-open .fr-view__figure {
+  transform: none;
+}
+
+/* as wide as the screen allows, never taller than the room, never blown up beyond what the file holds */
+.fr-view__print {
+  width: min(100%, calc(var(--fr-view-h) * var(--fr-ratio-n, 1) + 2 * var(--sp-8)), calc(var(--fr-natural, 100vw) + 2 * var(--sp-8)));
+  padding: var(--sp-8);
+  border-radius: var(--fr-corner);
+  background: var(--grad-paper);
+  box-shadow: var(--shadow-3);
+}
+
+.fr-view__photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: var(--fr-ratio, 1 / 1);
+  border-radius: 1px;
+  background: var(--paper-2);
+}
+
+.fr-view__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.fr-view__photo .fr-error {
+  color: var(--ink-soft);
+}
+
+.fr-view__caption {
+  max-width: 20rem;
+  padding-inline: var(--sp-8);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.fr-view__close {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--safe-bottom) + var(--sp-24));
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-left: -1.625rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--panel);
+  box-shadow:
+    var(--shadow-2),
+    inset 0 0 0 1px var(--line);
+  color: var(--gold-light);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform var(--dur-100) ease-out;
+}
+
+.fr-view__close:active {
+  transform: scale(0.94);
+}
+
+.fr-view__cross {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+/* ───────────── calm mode: plain fades ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .fr-item,
+  .fr-cta {
+    transform: none;
+    transition: opacity var(--dur-400) linear;
+  }
+
+  .fr-item--a,
+  .fr-item--b,
+  .fr-item--d {
+    transition-delay: 0ms;
+  }
+
+  .fr-soft,
+  .fr-wash {
+    transition: opacity var(--dur-600) linear;
+  }
+
+  .fr-soft {
+    transition-delay: var(--dur-200);
+  }
+
+  .fr-print,
+  .fr-view__close {
+    transition: none;
+  }
+
+  .fr-print:active {
+    transform: rotate(var(--fr-tilt, 0deg));
+  }
+
+  .fr-view__close:active {
+    transform: none;
+  }
+
+  .fr-view {
+    transition: opacity var(--dur-200) linear;
+  }
+
+  .fr-view__figure,
+  .fr-view.is-open .fr-view__figure {
+    transform: none;
+    transition: none;
+  }
+}
