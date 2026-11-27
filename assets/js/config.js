@@ -11,6 +11,14 @@ export const SINCE_YES_MS = Date.parse(SINCE_YES_UTC);
 /** The birthday phase lasts 24 hours after the unlock; after that the site is a keepsake. */
 export const BIRTHDAY_LENGTH_MS = 24 * 60 * 60 * 1000;
 
+/**
+ * Giving the coupons back. A redeemed coupon keeps its REDEEMED stamp on her phone for good; this is the way
+ * to take the stamps off again — for example when one was redeemed by mistake. Write a new word here (the date
+ * is the simplest one), and the next time the page opens on a phone every stamp is forgotten, once. A phone
+ * that has already forgotten them for this word does nothing. Nothing else she has done is touched.
+ */
+export const COUPONS_FRESH_AGAIN = '2026-11-28';
+
 /** Chapters in the order she sees them. */
 export const CHAPTERS = Object.freeze(['lamp', 'frames', 'question', 'reasons', 'letter', 'cake', 'gifts', 'finale']);
 
